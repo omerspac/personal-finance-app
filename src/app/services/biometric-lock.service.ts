@@ -199,11 +199,23 @@ export class BiometricLockService {
   // behavior — a failed *enable* attempt in Settings has nothing to do
   // with that, and must never contribute to it or trigger a forced logout.
   //
+  // The Android side of the plugin (AuthActivity) only allows retries
+  // inside one prompt session when `maxAttempts` is passed explicitly.
+  // Its default is 1, which means the FIRST failed scan immediately
+  // finishes the auth activity and rejects the promise - even though the
+  // system BiometricPrompt dialog is still on screen and would accept a
+  // correct scan. We therefore pass maxAttempts: 5 so a wrong first scan
+  // does NOT settle the promise: the same native session stays open for
+  // retries, and the promise resolves only on real success, or rejects
+  // only when the session truly ends (user cancel, device lockout, or
+  // all attempts used). We never call verifyIdentity() a second time.
+  // (maxAttempts is ignored on iOS, where the system prompt does not
+  // offer retries in the same session.)
+  //
   // A single verifyIdentity() call is trusted to encapsulate the native
   // OS-level biometric prompt, including its own internal retry UI for
-  // a wrong scan — the promise settles only once the native flow is
-  // genuinely finished (success, cancellation, or terminal error). We
-  // do not call verifyIdentity() a second time ourselves.
+  // a wrong scan - the promise settles only once the native flow is
+  // genuinely finished.
 
   async verifyForSetup(mode: 'fingerprint' | 'face'): Promise<boolean> {
 
@@ -216,7 +228,8 @@ export class BiometricLockService {
         description: mode === 'face'
           ? 'Scan your face to enable Face Lock'
           : 'Scan your fingerprint to enable Fingerprint Lock',
-        useFallback: false
+        useFallback: false,
+        maxAttempts: 5
       });
 
       return true;
