@@ -1,0 +1,765 @@
+/* =========================================
+   OMFIN - HOME / DASHBOARD
+   Mobile-first UI
+   ========================================= */
+
+
+/* =========================================
+   PAGE BACKGROUND
+   ========================================= */
+
+ion-content.home-content {
+  --background: var(--app-background);
+}
+
+
+/* =========================================
+   HOME PAGE
+   ========================================= */
+
+.home-page {
+  width: 100%;
+  min-height: 100%;
+
+  box-sizing: border-box;
+
+  padding: 24px 16px 16px;
+}
+
+
+/* =========================================
+   FIXED TOP BAR
+   ========================================= */
+
+.top-bar {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+  right: 0;
+
+  z-index: 1000;
+
+  height: calc(72px + env(safe-area-inset-top));
+
+  padding:
+    env(safe-area-inset-top)
+    18px
+    0;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  box-sizing: border-box;
+
+  background: rgba(247, 248, 250, 0.94);
+
+  border-bottom: 1px solid rgba(232, 234, 237, 0.8);
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+
+/* =========================================
+   GREETING
+   ========================================= */
+
+.greeting {
+  min-width: 0;
+}
+
+.greeting span {
+  display: block;
+
+  margin-bottom: 2px;
+
+  font-size: 12px;
+  line-height: 16px;
+
+  color: #7b828c;
+}
+
+.greeting h1 {
+  margin: 0;
+
+  font-size: 23px;
+  line-height: 28px;
+
+  font-weight: 700;
+
+  letter-spacing: -0.4px;
+
+  color: #171a1f;
+}
+
+
+/* =========================================
+   TOP ACTIONS
+   ========================================= */
+
+.top-actions {
+  display: flex;
+  align-items: center;
+
+  flex-shrink: 0;
+}
+
+.top-icon-button {
+  width: 44px;
+  height: 44px;
+
+  margin: 0;
+
+  --padding-start: 0;
+  --padding-end: 0;
+
+  --color: #555d67;
+}
+
+.top-icon-button ion-icon {
+  font-size: 22px;
+}
+
+
+/* =========================================
+   BALANCE SECTION
+   ========================================= */
+
+.balance-section {
+  padding: 22px;
+  border-radius: 20px;
+
+  background: #ffffff;
+  color: #20252d;
+
+  border: 1px solid #e8eaed;
+
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+
+  margin-bottom: 28px;
+}
+
+.section-label {
+  margin: 0 0 7px;
+
+  font-size: 13px;
+
+  color: #aeb4bc;
+}
+
+.total-balance {
+  margin: 0;
+
+  font-size: 32px;
+  line-height: 40px;
+
+  font-weight: 750;
+
+  letter-spacing: -0.8px;
+
+  color: #171a1f;
+}
+
+.balance-summary {
+  display: flex;
+  align-items: center;
+
+  margin-top: 22px;
+}
+
+.summary-item {
+  display: flex;
+  align-items: center;
+
+  flex: 1;
+
+  min-width: 0;
+}
+
+.summary-icon {
+  width: 32px;
+  height: 32px;
+
+  margin-right: 9px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.summary-icon ion-icon {
+  font-size: 16px;
+}
+
+.summary-item span {
+  display: block;
+
+  margin-bottom: 2px;
+
+  font-size: 11px;
+
+  color: #7b828c;
+}
+
+.summary-item strong {
+  display: block;
+
+  font-size: 13px;
+  font-weight: 650;
+
+  color: #20242a;
+}
+
+.summary-divider {
+  width: 1px;
+  height: 34px;
+
+  margin: 0 14px;
+
+  background: #e8eaed;
+}
+
+.income .summary-icon {
+  color: #31965b;
+}
+
+.expense .summary-icon {
+  color: #d45b5b;
+}
+
+
+/* =========================================
+   SECTION HEADERS
+   ========================================= */
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 13px;
+}
+
+.section-header h2 {
+  margin: 0;
+
+  font-size: 18px;
+  font-weight: 700;
+
+  color: #20242a;
+}
+
+.section-header > span {
+  font-size: 12px;
+  color: #8a919a;
+}
+
+
+/* =========================================
+   MONTHLY CARDS
+   ========================================= */
+
+.monthly-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  gap: 12px;
+
+  margin-bottom: 28px;
+}
+
+.monthly-card {
+  min-width: 0;
+
+  padding: 16px;
+
+  border-radius: 16px;
+
+  background: #ffffff;
+
+  border: 1px solid #e8eaed;
+}
+
+.card-icon {
+  width: 34px;
+  height: 34px;
+
+  margin-bottom: 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+}
+
+.card-icon ion-icon {
+  font-size: 18px;
+}
+
+.income-icon {
+  background: #edf9f1;
+  color: #31965b;
+}
+
+.expense-icon {
+  background: #fff0f0;
+  color: #d45b5b;
+}
+
+.monthly-card > span {
+  display: block;
+
+  margin-bottom: 5px;
+
+  font-size: 12px;
+
+  color: #7b828c;
+}
+
+.monthly-card > strong {
+  display: block;
+
+  overflow: hidden;
+
+  font-size: 16px;
+  font-weight: 700;
+
+  color: #20242a;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+
+/* =========================================
+   RECENT TRANSACTIONS
+   ========================================= */
+
+.transactions-header {
+  margin-bottom: 5px;
+}
+
+.see-all-button {
+  --color: #555d67;
+
+  margin: 0;
+
+  font-size: 12px;
+
+  text-transform: none;
+}
+
+.see-all-button ion-icon {
+  font-size: 14px;
+}
+
+
+/* =========================================
+   TRANSACTION ITEMS
+   ========================================= */
+
+.transactions-list {
+  background: #ffffff;
+
+  border: 1px solid #e8eaed;
+  border-radius: 16px;
+
+  overflow: hidden;
+}
+
+.transaction-item {
+  min-height: 72px;
+
+  padding: 12px 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-bottom: 1px solid #eef0f2;
+}
+
+.transaction-item:last-child {
+  border-bottom: none;
+}
+
+.transaction-item.no-transactions {
+  justify-content: flex-start;
+}
+
+.transaction-left {
+  display: flex;
+  align-items: center;
+
+  min-width: 0;
+}
+
+.transaction-icon {
+  width: 42px;
+  height: 42px;
+
+  margin-right: 12px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+}
+
+.transaction-icon ion-icon {
+  font-size: 20px;
+}
+
+.transaction-icon.food {
+  background: #fff3e8;
+  color: #d97828;
+}
+
+.transaction-icon.salary {
+  background: #edf9f1;
+  color: #31965b;
+}
+
+.transaction-icon.transport {
+  background: #eef3ff;
+  color: #5576c9;
+}
+
+.transaction-info {
+  min-width: 0;
+}
+
+.transaction-info strong {
+  display: block;
+
+  margin-bottom: 3px;
+
+  overflow: hidden;
+
+  font-size: 14px;
+  font-weight: 650;
+
+  color: #20242a;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.transaction-info span {
+  display: block;
+
+  font-size: 11px;
+
+  color: #858c95;
+}
+
+.income-amount,
+.expense-amount {
+  margin-left: 8px;
+
+  flex-shrink: 0;
+
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.income-amount {
+  color: #31965b;
+}
+
+.expense-amount {
+  color: #d45b5b;
+}
+
+
+/* =========================================
+   BOTTOM NAVIGATION
+   ========================================= */
+
+.bottom-navigation {
+  position: fixed;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  z-index: 100;
+
+  height: calc(64px + env(safe-area-inset-bottom));
+
+  padding:
+    4px
+    8px
+    15px
+    env(safe-area-inset-bottom);
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+
+  background: rgba(255, 255, 255, 0.96);
+
+  border-top: 1px solid #e8eaed;
+
+  box-sizing: border-box;
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.nav-item {
+  min-width: 0;
+
+  border: none;
+  background: transparent;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 3px;
+
+  font-family: inherit;
+
+  color: #8b929b;
+
+  -webkit-tap-highlight-color: transparent;
+}
+
+.nav-item ion-icon {
+  font-size: 22px;
+
+  transition: transform 0.15s ease;
+}
+
+.nav-item span {
+  max-width: 100%;
+
+  overflow: hidden;
+
+  font-size: 10px;
+  font-weight: 550;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.nav-item.active {
+  color: #20252d;
+}
+
+.nav-item.active ion-icon {
+  transform: translateY(-1px);
+}
+
+
+/* =========================================
+   DARK MODE
+   ========================================= */
+
+/*
+   IMPORTANT:
+   home.page.scss is component-scoped.
+   Therefore we use :host-context(.dark)
+   instead of html.dark.
+*/
+
+:host-context(.dark) {
+
+  ion-content.home-content {
+    --background: #111418;
+  }
+
+
+  /* Top bar */
+
+  .top-bar {
+    background: rgba(17, 20, 24, 0.94);
+    border-bottom-color: rgba(45, 50, 57, 0.8);
+  }
+
+  .greeting h1 {
+    color: #f4f5f6;
+  }
+
+  .greeting span {
+    color: #9299a2;
+  }
+
+  .top-icon-button {
+    --color: #b3bac3;
+  }
+
+
+  /* Balance */
+
+  .balance-section {
+    background: #1d2229;
+    color: #f1f2f3;
+
+    border-color: #2d3239;
+
+    box-shadow: none;
+  }
+
+  .section-label {
+    color: #9299a2;
+  }
+
+  .total-balance {
+    color: #ffffff;
+  }
+
+  .summary-icon {
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .summary-item span {
+    color: #9299a2;
+  }
+
+  .summary-item strong {
+    color: #ffffff;
+  }
+
+  .summary-divider {
+    background: #3a4048;
+  }
+
+
+  /* Section headers */
+
+  .section-header h2 {
+    color: #f1f2f3;
+  }
+
+  .section-header > span {
+    color: #858c95;
+  }
+
+
+  /* Monthly cards */
+
+  .monthly-card {
+    background: #1a1e23;
+    border-color: #2d3239;
+  }
+
+  .monthly-card > span {
+    color: #9299a2;
+  }
+
+  .monthly-card > strong {
+    color: #f1f2f3;
+  }
+
+  .income-icon {
+    background: rgba(49, 150, 91, 0.14);
+  }
+
+  .expense-icon {
+    background: rgba(212, 91, 91, 0.14);
+  }
+
+
+  /* Transactions */
+
+  .see-all-button {
+    --color: #b3bac3;
+  }
+
+  .transactions-list {
+    background: #1a1e23;
+    border-color: #2d3239;
+  }
+
+  .transaction-item {
+    border-color: #2d3239;
+  }
+
+  .transaction-info strong {
+    color: #f1f2f3;
+  }
+
+  .transaction-info span {
+    color: #858c95;
+  }
+
+
+  /* Transaction icons */
+
+  .transaction-icon.food {
+    background: rgba(217, 120, 40, 0.14);
+  }
+
+  .transaction-icon.salary {
+    background: rgba(49, 150, 91, 0.14);
+  }
+
+  .transaction-icon.transport {
+    background: rgba(85, 118, 201, 0.14);
+  }
+
+
+  /* Bottom navigation */
+
+  .bottom-navigation {
+    background: rgba(25, 29, 34, 0.96);
+    border-top-color: #2d3239;
+  }
+
+  .nav-item {
+    color: #777f89;
+  }
+
+  .nav-item.active {
+    color: #f1f2f3;
+  }
+
+}
+
+
+/* =========================================
+   SMALL PHONES
+   ========================================= */
+
+@media (max-height: 680px) {
+
+  .home-page {
+    padding-top:
+      calc(env(safe-area-inset-top) + 12px);
+  }
+
+  .top-bar {
+    margin-bottom: 18px;
+  }
+
+  .balance-section {
+    padding: 18px;
+
+    margin-bottom: 20px;
+  }
+
+  .total-balance {
+    font-size: 28px;
+  }
+
+  .monthly-cards {
+    margin-bottom: 20px;
+  }
+
+  .monthly-card {
+    padding: 13px;
+  }
+
+}

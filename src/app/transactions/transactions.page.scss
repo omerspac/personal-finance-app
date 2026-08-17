@@ -1,0 +1,848 @@
+/* =========================================
+   OMFIN - TRANSACTIONS
+   Mobile-first UI
+   ========================================= */
+
+
+/* =========================================
+   PAGE
+   ========================================= */
+
+ion-content.transactions-content {
+  --background: var(--app-background);
+}
+
+.transactions-page {
+  width: 100%;
+  min-height: 100%;
+
+  box-sizing: border-box;
+
+  padding: 24px 16px 16px;
+}
+
+
+/* =========================================
+   TOP BAR
+   ========================================= */
+
+.top-bar {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+  right: 0;
+
+  z-index: 1000;
+
+  height: calc(72px + env(safe-area-inset-top));
+
+  padding:
+    env(safe-area-inset-top)
+    18px
+    0;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  box-sizing: border-box;
+
+  background: rgba(247, 248, 250, 0.94);
+
+  border-bottom: 1px solid rgba(232, 234, 237, 0.8);
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+
+/* =========================================
+   PAGE HEADING
+   ========================================= */
+
+.page-heading {
+  min-width: 0;
+}
+
+.page-heading span {
+  display: block;
+
+  margin-bottom: 2px;
+
+  font-size: 12px;
+  line-height: 16px;
+
+  color: #7b828c;
+}
+
+.page-heading h1 {
+  margin: 0;
+
+  font-size: 23px;
+  line-height: 28px;
+
+  font-weight: 700;
+
+  letter-spacing: -0.4px;
+
+  color: #171a1f;
+}
+
+
+/* =========================================
+   TOP BUTTON
+   ========================================= */
+
+.top-icon-button {
+  width: 44px;
+  height: 44px;
+
+  margin: 0;
+
+  --padding-start: 0;
+  --padding-end: 0;
+
+  --color: #555d67;
+}
+
+.top-icon-button ion-icon {
+  font-size: 22px;
+}
+
+
+/* =========================================
+   SEARCH
+   ========================================= */
+
+.search-wrapper {
+  height: 48px;
+
+  margin-bottom: 14px;
+
+  padding: 0 14px;
+
+  display: flex;
+  align-items: center;
+
+  box-sizing: border-box;
+
+  background: #ffffff;
+
+  border: 1px solid #e8eaed;
+  border-radius: 14px;
+}
+
+.search-wrapper > ion-icon {
+  flex-shrink: 0;
+
+  margin-right: 10px;
+
+  font-size: 19px;
+
+  color: #858c95;
+}
+
+.search-wrapper ion-input {
+  --padding-start: 0;
+  --padding-end: 0;
+
+  --padding-top: 0;
+  --padding-bottom: 0;
+
+  font-size: 13px;
+
+  --color: #20242a;
+  --placeholder-color: #9299a2;
+}
+
+
+/* =========================================
+   FILTERS
+   ========================================= */
+
+.filter-row {
+  width: 100%;
+
+  margin-bottom: 26px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  overflow-x: auto;
+
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.filter-row::-webkit-scrollbar {
+  display: none;
+}
+
+.filter-chip {
+  height: 36px;
+
+  padding: 0 14px;
+
+  flex-shrink: 0;
+
+  border: 1px solid #e3e6e9;
+  border-radius: 18px;
+
+  background: #ffffff;
+
+  font-family: inherit;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  color: #6f7781;
+
+  -webkit-tap-highlight-color: transparent;
+}
+
+.filter-chip.active {
+  background: #20252d;
+
+  border-color: #20252d;
+
+  color: #ffffff;
+}
+
+.category-filter {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.category-filter ion-icon {
+  font-size: 14px;
+}
+
+
+/* =========================================
+   SECTION HEADER
+   ========================================= */
+
+.section-header {
+  margin-bottom: 13px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.section-header > div {
+  min-width: 0;
+}
+
+.section-header h2 {
+  margin: 0 0 3px;
+
+  font-size: 18px;
+  line-height: 22px;
+
+  font-weight: 700;
+
+  color: #20242a;
+}
+
+.section-header > div > span {
+  font-size: 11px;
+
+  color: #858c95;
+}
+
+.transaction-count {
+  min-width: 28px;
+  height: 28px;
+
+  padding: 0 8px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 14px;
+
+  background: #eef0f2;
+
+  font-size: 11px;
+  font-weight: 650;
+
+  color: #626a74;
+}
+
+
+/* =========================================
+   TRANSACTION LIST
+   ========================================= */
+
+.transactions-list {
+  overflow: hidden;
+
+  background: #ffffff;
+
+  border: 1px solid #e8eaed;
+  border-radius: 16px;
+}
+
+
+/* =========================================
+   TRANSACTION ITEM
+   ========================================= */
+
+.transaction-item {
+  min-height: 76px;
+
+  padding: 12px 13px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  box-sizing: border-box;
+
+  border-bottom: 1px solid #eef0f2;
+}
+
+.transaction-item:last-child {
+  border-bottom: none;
+}
+
+.transaction-left {
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+}
+
+.transaction-icon {
+  width: 42px;
+  height: 42px;
+
+  margin-right: 11px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+}
+
+.transaction-icon ion-icon {
+  font-size: 19px;
+}
+
+.income-icon {
+  background: #edf9f1;
+
+  color: #31965b;
+}
+
+.expense-icon {
+  background: #fff0f0;
+
+  color: #d45b5b;
+}
+
+
+/* =========================================
+   TRANSACTION INFORMATION
+   ========================================= */
+
+.transaction-info {
+  min-width: 0;
+}
+
+.transaction-info strong {
+  display: block;
+
+  max-width: 145px;
+
+  margin-bottom: 4px;
+
+  overflow: hidden;
+
+  font-size: 13px;
+  font-weight: 650;
+
+  color: #20242a;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.transaction-info span {
+  display: block;
+
+  max-width: 145px;
+
+  overflow: hidden;
+
+  font-size: 10px;
+
+  color: #858c95;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+
+/* =========================================
+   RIGHT SIDE
+   ========================================= */
+
+.transaction-right {
+  margin-left: 8px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  gap: 7px;
+}
+
+.transaction-right > strong {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.income-amount {
+  color: #31965b;
+}
+
+.expense-amount {
+  color: #d45b5b;
+}
+
+
+/* =========================================
+   EDIT / DELETE
+   ========================================= */
+
+.transaction-actions {
+  display: flex;
+  align-items: center;
+
+  gap: 2px;
+}
+
+.transaction-actions button {
+  width: 28px;
+  height: 28px;
+
+  padding: 0;
+
+  border: none;
+  border-radius: 8px;
+
+  background: transparent;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  -webkit-tap-highlight-color: transparent;
+}
+
+.transaction-actions ion-icon {
+  font-size: 16px;
+}
+
+.edit-button {
+  color: #727a84;
+}
+
+.delete-button {
+  color: #d45b5b;
+}
+
+
+/* =========================================
+   EMPTY STATE
+   ========================================= */
+
+.empty-state {
+  padding: 50px 24px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  text-align: center;
+}
+
+.empty-icon {
+  width: 58px;
+  height: 58px;
+
+  margin-bottom: 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 18px;
+
+  background: #f0f2f4;
+
+  color: #858c95;
+}
+
+.empty-icon ion-icon {
+  font-size: 26px;
+}
+
+.empty-state h3 {
+  margin: 0 0 7px;
+
+  font-size: 16px;
+
+  font-weight: 700;
+
+  color: #20242a;
+}
+
+.empty-state p {
+  max-width: 260px;
+
+  margin: 0;
+
+  font-size: 12px;
+  line-height: 18px;
+
+  color: #858c95;
+}
+
+
+/* =========================================
+   ADD TRANSACTION FAB
+   ========================================= */
+
+.add-transaction-fab {
+  position: fixed !important;
+
+  // sits above the app-shell's bottom nav (64px + safe area)
+  bottom: calc(64px + env(safe-area-inset-bottom) + 16px);
+  right: 18px;
+
+  z-index: 1001; // above bottom-navigation's z-index: 1000
+}
+
+.add-transaction-fab ion-fab-button {
+  --background: #20252d;
+  --background-activated: #15191e;
+
+  --color: #ffffff;
+
+  --box-shadow:
+    0 6px 18px rgba(0, 0, 0, 0.18);
+
+  width: 54px;
+  height: 54px;
+}
+
+.add-transaction-fab ion-icon {
+  font-size: 25px;
+}
+
+
+/* =========================================
+   BOTTOM NAVIGATION
+   ========================================= */
+
+.bottom-navigation {
+  position: fixed;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  z-index: 100;
+
+  height: calc(64px + env(safe-area-inset-bottom));
+
+  padding:
+    4px
+    8px
+    15px
+    8px;
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+
+  background: rgba(255, 255, 255, 0.96);
+
+  border-top: 1px solid #e8eaed;
+
+  box-sizing: border-box;
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.nav-item {
+  min-width: 0;
+
+  border: none;
+  background: transparent;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 3px;
+
+  font-family: inherit;
+
+  color: #8b929b;
+
+  -webkit-tap-highlight-color: transparent;
+}
+
+.nav-item ion-icon {
+  font-size: 22px;
+
+  transition: transform 0.15s ease;
+}
+
+.nav-item span {
+  max-width: 100%;
+
+  overflow: hidden;
+
+  font-size: 10px;
+  font-weight: 550;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.nav-item.active {
+  color: #20252d;
+}
+
+.nav-item.active ion-icon {
+  transform: translateY(-1px);
+}
+
+
+/* =========================================
+   DARK MODE
+   ========================================= */
+
+:host-context(.dark) {
+
+  /* Top bar */
+
+  .top-bar {
+    background: rgba(17, 20, 24, 0.94);
+
+    border-bottom-color: rgba(45, 50, 57, 0.8);
+  }
+
+  .page-heading span {
+    color: #9299a2;
+  }
+
+  .page-heading h1 {
+    color: #f4f5f6;
+  }
+
+  .top-icon-button {
+    --color: #b3bac3;
+  }
+
+
+  /* Search */
+
+  .search-wrapper {
+    background: #1a1e23;
+
+    border-color: #2d3239;
+  }
+
+  .search-wrapper > ion-icon {
+    color: #858c95;
+  }
+
+  .search-wrapper ion-input {
+    --color: #f1f2f3;
+    --placeholder-color: #858c95;
+  }
+
+
+  /* Filters */
+
+  .filter-chip {
+    background: #1a1e23;
+
+    border-color: #2d3239;
+
+    color: #aeb4bc;
+  }
+
+  .filter-chip.active {
+    background: #f1f2f3;
+
+    border-color: #f1f2f3;
+
+    color: #171a1f;
+  }
+
+
+  /* Section header */
+
+  .section-header h2 {
+    color: #f1f2f3;
+  }
+
+  .section-header > div > span {
+    color: #858c95;
+  }
+
+  .transaction-count {
+    background: #252a31;
+
+    color: #aeb4bc;
+  }
+
+
+  /* Transaction list */
+
+  .transactions-list {
+    background: #1a1e23;
+
+    border-color: #2d3239;
+  }
+
+  .transaction-item {
+    border-bottom-color: #2d3239;
+  }
+
+  .transaction-info strong {
+    color: #f1f2f3;
+  }
+
+  .transaction-info span {
+    color: #858c95;
+  }
+
+
+  /* Transaction icons */
+
+  .income-icon {
+    background: rgba(49, 150, 91, 0.14);
+  }
+
+  .expense-icon {
+    background: rgba(212, 91, 91, 0.14);
+  }
+
+
+  /* Actions */
+
+  .edit-button {
+    color: #9aa2ac;
+  }
+
+  .delete-button {
+    color: #e07171;
+  }
+
+
+  /* Empty state */
+
+  .empty-icon {
+    background: #252a31;
+
+    color: #9299a2;
+  }
+
+  .empty-state h3 {
+    color: #f1f2f3;
+  }
+
+  .empty-state p {
+    color: #858c95;
+  }
+
+
+  /* FAB */
+
+  .add-transaction-fab ion-fab-button {
+    --background: #f1f2f3;
+    --background-activated: #ffffff;
+
+    --color: #171a1f;
+
+    --box-shadow:
+      0 6px 18px rgba(0, 0, 0, 0.35);
+  }
+
+
+  /* Bottom navigation */
+
+  .bottom-navigation {
+    background: rgba(25, 29, 34, 0.96);
+
+    border-top-color: #2d3239;
+  }
+
+  .nav-item {
+    color: #777f89;
+  }
+
+  .nav-item.active {
+    color: #f1f2f3;
+  }
+
+}
+
+
+/* =========================================
+   SMALL PHONES
+   ========================================= */
+
+@media (max-height: 680px) {
+
+  .transactions-page {
+    padding-top:
+      calc(env(safe-area-inset-top) + 12px);
+  }
+
+  .transaction-item {
+    min-height: 70px;
+
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .transaction-icon {
+    width: 38px;
+    height: 38px;
+
+    margin-right: 10px;
+  }
+
+  .transaction-icon ion-icon {
+    font-size: 17px;
+  }
+
+  .transaction-info strong {
+    max-width: 130px;
+  }
+
+  .transaction-info span {
+    max-width: 130px;
+  }
+
+}

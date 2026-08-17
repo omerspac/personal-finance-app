@@ -1,0 +1,258 @@
+/* =========================================
+   OMFIN - APP SHELL
+   Shared Mobile Navigation
+   ========================================= */
+
+
+/* =========================================
+   CONTENT
+   ========================================= */
+
+ion-content.app-shell-content {
+  --background: var(--app-background);
+}
+
+
+/* =========================================
+   TOP BAR
+   ========================================= */
+
+.top-bar {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+  right: 0;
+
+  z-index: 1000;
+
+  height: calc(72px + env(safe-area-inset-top));
+
+  padding:
+    env(safe-area-inset-top)
+    18px
+    0;
+  padding-top: 25px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  box-sizing: border-box;
+
+  background: rgba(247, 248, 250, 0.94);
+
+  border-bottom: 1px solid rgba(232, 234, 237, 0.8);
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+
+/* =========================================
+   GREETING
+   ========================================= */
+
+.greeting {
+  min-width: 0;
+}
+
+.greeting h1 {
+  margin: 0;
+
+  font-size: 23px;
+  line-height: 28px;
+
+  font-weight: 700;
+
+  letter-spacing: -0.4px;
+
+  color: #171a1f;
+}
+
+
+/* =========================================
+   TOP ACTIONS
+   ========================================= */
+
+.top-actions {
+  display: flex;
+  align-items: center;
+
+  flex-shrink: 0;
+}
+
+.top-icon-button {
+  width: 44px;
+  height: 44px;
+
+  margin: 0;
+
+  --padding-start: 0;
+  --padding-end: 0;
+
+  --color: #555d67;
+}
+
+.top-icon-button ion-icon {
+  font-size: 22px;
+}
+
+
+/* =========================================
+   PAGE CONTENT AREA
+   ========================================= */
+
+.shell-content {
+  width: 100%;
+  min-height: 100%;
+  box-sizing: border-box;
+
+  padding-top: calc(72px + env(safe-area-inset-top));
+  padding-bottom: calc(64px + env(safe-area-inset-bottom));
+}
+
+
+/* =========================================
+   BOTTOM NAVIGATION
+   ========================================= */
+
+.bottom-navigation {
+  position: fixed;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  z-index: 1000;
+
+  height: calc(64px + env(safe-area-inset-bottom));
+
+  padding:
+    4px
+    8px
+    15px
+    env(safe-area-inset-bottom);
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+
+  background: rgba(255, 255, 255, 0.96);
+
+  border-top: 1px solid #e8eaed;
+
+  box-sizing: border-box;
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+
+/* =========================================
+   NAV ITEMS
+   ========================================= */
+
+.nav-item {
+  min-width: 0;
+
+  border: none;
+  background: transparent;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 3px;
+
+  font-family: inherit;
+
+  color: #8b929b;
+
+  -webkit-tap-highlight-color: transparent;
+}
+
+.nav-item ion-icon {
+  font-size: 22px;
+
+  transition: transform 0.15s ease;
+}
+
+.nav-item span {
+  max-width: 100%;
+
+  overflow: hidden;
+
+  font-size: 10px;
+  font-weight: 550;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.nav-item.active {
+  color: #20252d;
+}
+
+.nav-item.active ion-icon {
+  transform: translateY(-1px);
+}
+
+
+/* =========================================
+   DARK MODE
+   ========================================= */
+
+:host-context(.dark) {
+
+  .top-bar {
+    background: rgba(17, 20, 24, 0.94);
+
+    border-bottom-color:
+      rgba(45, 50, 57, 0.8);
+  }
+
+  .greeting h1 {
+    color: #f4f5f6;
+  }
+
+  .top-icon-button {
+    --color: #b3bac3;
+  }
+
+
+  /* Bottom Navigation */
+
+  .bottom-navigation {
+    background: rgba(25, 29, 34, 0.96);
+
+    border-top-color: #2d3239;
+  }
+
+  .nav-item {
+    color: #777f89;
+  }
+
+  .nav-item.active {
+    color: #f1f2f3;
+  }
+
+}
+
+
+/* =========================================
+   SMALL PHONES
+   ========================================= */
+
+@media (max-height: 680px) {
+
+  .top-bar {
+    height: calc(64px + env(safe-area-inset-top));
+  }
+
+  .shell-content {
+    padding-top:
+      calc(64px + env(safe-area-inset-top));
+  }
+
+}

@@ -1,0 +1,464 @@
+/* =========================================
+   OMFIN - ADD TRANSACTION
+   Mobile-first UI
+========================================= */
+
+ion-content.add-transaction-content {
+  --background: var(--app-background);
+}
+
+
+/* =========================================
+   PAGE
+========================================= */
+
+.add-transaction-page {
+  width: 100%;
+  min-height: 100%;
+  box-sizing: border-box;
+
+  padding:
+    calc(20px + env(safe-area-inset-top))
+    18px
+    calc(30px + env(safe-area-inset-bottom));
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.page-header {
+  display: flex;
+  align-items: center;
+
+  gap: 13px;
+
+  margin-bottom: 28px;
+}
+
+.back-button {
+  width: 42px;
+  height: 42px;
+
+  flex-shrink: 0;
+
+  border: none;
+  border-radius: 13px;
+
+  background: var(--app-surface);
+
+  color: var(--app-text);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid var(--app-border);
+
+  -webkit-tap-highlight-color: transparent;
+}
+
+.back-button ion-icon {
+  font-size: 21px;
+}
+
+.page-header h1 {
+  margin: 0;
+
+  font-size: 22px;
+  line-height: 28px;
+
+  font-weight: 750;
+
+  color: var(--app-text);
+}
+
+.page-header p {
+  margin: 3px 0 0;
+
+  font-size: 12px;
+
+  color: var(--app-text-secondary);
+}
+
+
+/* =========================================
+   FORM
+========================================= */
+
+.transaction-form {
+  display: flex;
+  flex-direction: column;
+
+  gap: 21px;
+}
+
+
+/* =========================================
+   FORM GROUP
+========================================= */
+
+.form-group {
+  width: 100%;
+}
+
+.form-group > label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  font-size: 13px;
+  font-weight: 650;
+
+  color: var(--app-text);
+}
+
+.form-group > label span {
+  font-weight: 400;
+
+  color: var(--app-text-muted);
+}
+
+
+/* =========================================
+   INPUT
+========================================= */
+
+.input-wrapper {
+  position: relative;
+
+  min-height: 52px;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0 14px;
+
+  box-sizing: border-box;
+
+  border-radius: 14px;
+
+  background: var(--app-surface);
+
+  border: 1px solid var(--app-border);
+}
+
+.input-wrapper > ion-icon {
+  flex-shrink: 0;
+
+  margin-right: 10px;
+
+  font-size: 19px;
+
+  color: var(--app-text-secondary);
+}
+
+.input-wrapper ion-input {
+  --padding-start: 0;
+  --padding-end: 0;
+
+  --padding-top: 0;
+  --padding-bottom: 0;
+
+  --color: var(--app-text);
+  --placeholder-color: var(--app-text-muted);
+
+  font-size: 14px;
+}
+
+.currency {
+  margin-right: 9px;
+
+  font-size: 14px;
+  font-weight: 650;
+
+  color: var(--app-text-secondary);
+}
+
+
+/* =========================================
+   CATEGORY SELECT
+========================================= */
+
+.input-wrapper select {
+  width: 100%;
+  height: 50px;
+
+  appearance: none;
+  -webkit-appearance: none;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+
+  color: var(--app-text);
+
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.input-wrapper select option {
+  background: var(--app-surface);
+
+  color: var(--app-text);
+}
+
+.input-wrapper .select-arrow {
+  margin: 0;
+
+  font-size: 17px;
+}
+
+/* =========================================
+   BILL TIME SELECTOR
+========================================= */
+
+.time-selector {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.time-select-wrapper {
+  flex: 1;
+  min-height: 52px;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0 12px;
+
+  box-sizing: border-box;
+
+  border-radius: 14px;
+
+  background: var(--app-surface);
+
+  border: 1px solid var(--app-border);
+}
+
+.time-select-wrapper select {
+  width: 100%;
+  height: 50px;
+
+  appearance: none;
+  -webkit-appearance: none;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+
+  color: var(--app-text);
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+
+  text-align: center;
+}
+
+.time-select-wrapper select option {
+  background: var(--app-surface);
+  color: var(--app-text);
+}
+
+.time-colon {
+  font-size: 18px;
+  font-weight: 700;
+
+  color: var(--app-text-secondary);
+}
+
+.period-select {
+  flex: 0 0 82px;
+}
+
+/* =========================================
+   TYPE SELECTOR
+========================================= */
+
+.type-selector {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 10px;
+}
+
+.type-button {
+  min-height: 54px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  border-radius: 14px;
+
+  border: 1px solid var(--app-border);
+
+  background: var(--app-surface);
+
+  color: var(--app-text-secondary);
+
+  font-family: inherit;
+
+  font-size: 14px;
+  font-weight: 650;
+
+  -webkit-tap-highlight-color: transparent;
+
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.type-button ion-icon {
+  font-size: 19px;
+}
+
+
+/* Income */
+
+.type-button.active-income {
+  color: #31965b;
+
+  background: rgba(49, 150, 91, 0.10);
+
+  border-color: rgba(49, 150, 91, 0.35);
+}
+
+
+/* Expense */
+
+.type-button.active-expense {
+  color: #d45b5b;
+
+  background: rgba(212, 91, 91, 0.10);
+
+  border-color: rgba(212, 91, 91, 0.35);
+}
+
+
+/* =========================================
+   TEXTAREA
+========================================= */
+
+.textarea-wrapper {
+  min-height: 110px;
+
+  padding: 4px 14px;
+
+  box-sizing: border-box;
+
+  border-radius: 14px;
+
+  background: var(--app-surface);
+
+  border: 1px solid var(--app-border);
+}
+
+.textarea-wrapper ion-textarea {
+  --padding-start: 0;
+  --padding-end: 0;
+
+  --padding-top: 10px;
+  --padding-bottom: 10px;
+
+  --color: var(--app-text);
+  --placeholder-color: var(--app-text-muted);
+
+  font-size: 14px;
+}
+
+
+/* =========================================
+   SAVE BUTTON
+========================================= */
+
+.save-button {
+  width: 100%;
+
+  min-height: 54px;
+
+  margin-top: 5px;
+
+  border: none;
+  border-radius: 15px;
+
+  background: var(--app-text);
+
+  color: var(--app-background);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  font-family: inherit;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  -webkit-tap-highlight-color: transparent;
+}
+
+.save-button ion-icon {
+  font-size: 20px;
+}
+
+.save-button:disabled {
+  opacity: 0.55;
+}
+
+
+/* =========================================
+   DARK MODE
+========================================= */
+
+:host-context(.dark) {
+
+  .input-wrapper,
+  .type-button,
+  .textarea-wrapper,
+  .back-button {
+    background: var(--app-surface);
+  }
+
+}
+
+
+/* =========================================
+   SMALL PHONES
+========================================= */
+
+@media (max-height: 680px) {
+
+  .add-transaction-page {
+    padding-top:
+      calc(12px + env(safe-area-inset-top));
+  }
+
+  .page-header {
+    margin-bottom: 20px;
+  }
+
+  .transaction-form {
+    gap: 16px;
+  }
+
+  .input-wrapper {
+    min-height: 48px;
+  }
+
+  .type-button {
+    min-height: 50px;
+  }
+
+}

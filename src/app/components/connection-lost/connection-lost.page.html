@@ -1,0 +1,58 @@
+<div class="connection-lost-overlay">
+
+  <div class="connection-lost-content">
+
+    <div class="icon-circle">
+      <ion-icon name="cloud-offline-outline"></ion-icon>
+    </div>
+
+    <h1>
+      {{ reconnectFailed ? 'Unable to Reconnect' : 'Connection Disconnected!' }}
+    </h1>
+
+    <p *ngIf="!isWaiting && !reconnectFailed">
+      Please check your internet connection. You can keep using OmFin,
+      but Cloud Sync won't work until you're back online.
+    </p>
+
+    <p *ngIf="!isWaiting && reconnectFailed">
+      We couldn't restore your internet connection.
+      Please check your connection and try again.
+    </p>
+
+    <div class="waiting-block" *ngIf="isWaiting">
+
+      <div class="spinner"></div>
+
+      <p class="waiting-text">
+        Waiting for connection...
+      </p>
+
+    </div>
+
+    <div class="button-row" *ngIf="!isWaiting">
+
+      <ion-button
+        fill="outline"
+        (click)="closeModal()">
+
+        Close
+
+      </ion-button>
+
+      <ion-button (click)="reload()">
+
+        <ion-icon
+          slot="start"
+          name="refresh-outline">
+        </ion-icon>
+
+        Reload
+
+      </ion-button>
+
+    </div>
+
+  </div>
+
+</div>

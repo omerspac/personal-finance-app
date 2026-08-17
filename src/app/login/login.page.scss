@@ -1,0 +1,686 @@
+/* =========================================
+   LOGIN PAGE
+   Mobile-first finance app UI
+   ========================================= */
+
+.login-page {
+  min-height: 100%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  padding:
+    calc(env(safe-area-inset-top) + 28px)
+    20px
+    calc(env(safe-area-inset-bottom) + 24px);
+
+  box-sizing: border-box;
+
+  background: var(--app-background, #f8f9fb);
+}
+
+
+/* =========================================
+   BRANDING
+   ========================================= */
+
+.brand-section {
+  text-align: center;
+
+  padding-top: 24px;
+  margin-bottom: 48px;
+}
+
+.logo {
+  width: 64px;
+  height: 64px;
+
+  margin: 0 auto 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 18px;
+
+  background: #20252d;
+  color: #ffffff;
+
+  font-size: 30px;
+  font-weight: 700;
+
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.brand-section h1 {
+  margin: 0;
+
+  font-size: 30px;
+  line-height: 1.15;
+
+  font-weight: 750;
+  letter-spacing: -0.6px;
+
+  color: #171a1f;
+}
+
+.brand-section p {
+  margin: 8px 0 0;
+
+  font-size: 14px;
+  line-height: 20px;
+
+  color: #747b85;
+}
+
+
+/* =========================================
+   LOGIN SECTION
+   ========================================= */
+
+.login-section {
+  width: 100%;
+}
+
+.welcome-text {
+  margin-bottom: 28px;
+}
+
+.welcome-text h2 {
+  margin: 0 0 6px;
+
+  font-size: 25px;
+  line-height: 32px;
+
+  font-weight: 700;
+  letter-spacing: -0.4px;
+
+  color: #171a1f;
+}
+
+.welcome-text p {
+  margin: 0;
+
+  font-size: 14px;
+  line-height: 21px;
+
+  color: #747b85;
+}
+
+
+/* =========================================
+   INPUTS
+   ========================================= */
+
+.input-group {
+  margin-bottom: 18px;
+}
+
+.input-group ion-label {
+  display: block;
+
+  margin: 0 0 8px 4px;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  color: #4d5560;
+}
+
+.input-item {
+  --background: #ffffff;
+
+  --border-radius: 14px;
+
+  --padding-start: 14px;
+  --inner-padding-end: 8px;
+
+  --min-height: 54px;
+
+  border: 1px solid #e3e6ea;
+  border-radius: 14px;
+
+  box-shadow: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.input-item:focus-within {
+  border-color: #20252d;
+
+  box-shadow:
+    0 0 0 3px rgba(32, 37, 45, 0.07);
+}
+
+.input-item > ion-icon {
+  margin-right: 10px;
+
+  font-size: 20px;
+
+  color: #8b929b;
+}
+
+.input-item ion-input {
+  --padding-start: 0;
+  --padding-end: 0;
+
+  font-size: 15px;
+
+  color: #171a1f;
+}
+
+.input-item ion-input::part(native) {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+
+/* =========================================
+   PASSWORD BUTTON
+   ========================================= */
+
+.password-toggle {
+  --padding-start: 8px;
+  --padding-end: 8px;
+
+  --color: #858c95;
+
+  margin: 0;
+
+  height: 42px;
+  min-width: 42px;
+}
+
+.password-toggle ion-icon {
+  font-size: 20px;
+}
+
+
+/* =========================================
+   FORGOT PASSWORD
+   ========================================= */
+
+.forgot-password {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: -2px;
+  margin-bottom: 26px;
+}
+
+.forgot-password ion-button {
+  --padding-start: 4px;
+  --padding-end: 4px;
+
+  --color: #20252d;
+
+  margin: 0;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  text-transform: none;
+}
+
+
+/* =========================================
+   FINGERPRINT TOGGLE BUTTON
+   ========================================= */
+
+.fingerprint-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 38px;
+  height: 38px;
+
+  border: 1.5px solid #d8dce2;
+  border-radius: 10px;
+  background: transparent;
+
+  color: #b0b7c0;
+
+  font-size: 20px;
+
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.fingerprint-toggle-btn ion-icon {
+  font-size: 20px;
+  pointer-events: none;
+}
+
+.fingerprint-toggle-btn:active {
+  transform: scale(0.93);
+}
+
+/* Active state — fingerprint login is ON */
+.fingerprint-toggle-btn--active {
+  border-color: #20252d;
+  background: rgba(32, 37, 45, 0.07);
+  color: #20252d;
+}
+
+.back-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  margin-bottom: 20px;
+
+  border: none;
+  background: transparent;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+
+  color: var(--app-text-secondary, #666);
+
+  -webkit-tap-highlight-color: transparent;
+}
+
+.back-link ion-icon {
+  font-size: 16px;
+}
+
+.field-hint {
+  margin: 6px 0 0;
+
+  font-size: 12px;
+
+  color: var(--app-text-muted, #999);
+}
+
+.success-message {
+  color: #31965b;
+
+  font-size: 0.875rem;
+  margin: 4px 0 12px;
+}
+
+/* =========================================
+   LOGIN BUTTON
+   ========================================= */
+
+.login-button {
+  --background: #20252d;
+  --background-activated: #11151a;
+  --background-hover: #20252d;
+
+  --border-radius: 14px;
+
+  --box-shadow: none;
+
+  height: 54px;
+
+  margin: 0;
+
+  font-size: 15px;
+  font-weight: 650;
+
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+
+/* =========================================
+   BOTTOM
+   ========================================= */
+
+.bottom-section {
+  margin-top: auto;
+
+  padding-top: 40px;
+
+  text-align: center;
+}
+
+.bottom-section p {
+  margin: 0;
+
+  font-size: 12px;
+
+  color: #9aa0a8;
+}
+
+
+/* =========================================
+   DARK MODE
+   ========================================= */
+
+:host-context(.dark) {
+
+  .brand-section h1,
+  .welcome-text h2 {
+    color: #f5f6f7;
+  }
+
+  .brand-section p,
+  .welcome-text p {
+    color: #949ba4;
+  }
+
+  .logo {
+    background: #f1f2f3;
+    color: #171a1f;
+  }
+
+  .input-group ion-label {
+    color: #b8bec6;
+  }
+
+  .input-item {
+    --background: #1a1e23;
+
+    border-color: #30353c;
+  }
+
+  .input-item:focus-within {
+    border-color: #b8bec6;
+
+    box-shadow:
+      0 0 0 3px rgba(184, 190, 198, 0.08);
+  }
+
+  .input-item > ion-icon {
+    color: #858c95;
+  }
+
+  .input-item ion-input {
+    color: #f5f6f7;
+  }
+
+  .password-toggle {
+    --color: #b3bac3;
+  }
+
+  .forgot-password ion-button {
+    --color: #e5e7eb;
+  }
+
+  .fingerprint-toggle-btn {
+    border-color: #30353c;
+    color: #5a6170;
+  }
+
+  .fingerprint-toggle-btn--active {
+    border-color: #e5e7eb;
+    background: rgba(229, 231, 235, 0.10);
+    color: #e5e7eb;
+  }
+
+  .biometric-login-button {
+    --border-color: #e5e7eb;
+    --color: #e5e7eb;
+  }
+
+  .login-button {
+    --background: #f1f2f3;
+    --background-activated: #ffffff;
+
+    --color: #171a1f;
+  }
+
+  .bottom-section p {
+    color: #6f767f;
+  }
+}
+
+
+/* =========================================
+   SMALL PHONES
+   ========================================= */
+
+@media (max-height: 680px) {
+
+  .brand-section {
+    padding-top: 8px;
+    margin-bottom: 32px;
+  }
+
+  .logo {
+    width: 56px;
+    height: 56px;
+
+    margin-bottom: 12px;
+
+    font-size: 26px;
+  }
+
+  .brand-section h1 {
+    font-size: 27px;
+  }
+
+  .login-section .welcome-text {
+    margin-bottom: 22px;
+  }
+
+  .bottom-section {
+    padding-top: 24px;
+  }
+}
+
+.biometric-login-button {
+  --border-color: #20252d;
+  --color: #20252d;
+  --border-radius: 14px;
+  --border-width: 1.5px;
+  --border-style: solid;
+
+  height: 54px;
+  margin: 12px 0 0;
+
+  font-size: 15px;
+  font-weight: 650;
+  text-transform: none;
+
+  opacity: 1;
+}
+
+/* =========================================
+   LOGIN ERROR TOAST
+   ========================================= */
+
+ion-toast.login-error-toast {
+  --background: #d45b5b;
+  --color: #ffffff;
+
+  --border-radius: 14px;
+
+  --min-width: calc(100% - 32px);
+  --max-width: calc(100% - 32px);
+
+  --padding-start: 16px;
+  --padding-end: 16px;
+
+  --box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.16);
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+
+/* =========================================
+   DARK MODE
+   ========================================= */
+
+:host-context(.dark) {
+
+  ion-toast.login-error-toast {
+    --background: #b94b4b;
+    --color: #ffffff;
+
+    --box-shadow:
+      0 8px 24px rgba(0, 0, 0, 0.35);
+  }
+
+}
+
+
+
+
+
+.fingerprint-toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.fingerprint-toggle-row ion-icon {
+  font-size: 20px;
+  color: var(--app-text-secondary, #666);
+}
+
+/* Fully-controlled native checkbox switch.
+   The input sits invisible on top of the track and intercepts every tap,
+   but its (click) handler always calls preventDefault(), so the browser
+   never toggles it - the checked state (and therefore the :checked CSS)
+   only ever follows fingerprintToggleEnabled. */
+
+.fingerprint-switch {
+  position: relative;
+
+  width: 51px;
+  height: 31px;
+
+  flex-shrink: 0;
+}
+
+.fingerprint-switch input[type="checkbox"] {
+  position: absolute;
+  inset: 0;
+
+  margin: 0;
+  width: 100%;
+  height: 100%;
+
+  opacity: 0;
+  cursor: pointer;
+
+  z-index: 1;
+
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.fingerprint-switch-track {
+  position: absolute;
+  inset: 0;
+
+  border-radius: 999px;
+
+  background: #d3d7dd;
+
+  transition: background-color 0.2s ease;
+}
+
+.fingerprint-switch-thumb {
+  position: absolute;
+
+  top: 2px;
+  left: 2px;
+
+  width: 27px;
+  height: 27px;
+
+  border-radius: 50%;
+
+  background: #ffffff;
+
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+
+  transition: transform 0.2s ease;
+}
+
+.fingerprint-switch input:checked ~ .fingerprint-switch-track {
+  background: #31965b;
+}
+
+.fingerprint-switch input:checked ~ .fingerprint-switch-track .fingerprint-switch-thumb {
+  transform: translateX(20px);
+}
+
+:host-context(.dark) {
+  .fingerprint-switch-track {
+    background: #3a3f47;
+  }
+
+  .fingerprint-switch-thumb {
+    background: #f1f2f3;
+
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  }
+
+  .fingerprint-switch input:checked ~ .fingerprint-switch-track {
+    background: #31965b;
+  }
+}
+
+.biometric-login-button {
+  opacity: 1 !important;
+  --border-color: var(--app-text, #171a1f);
+  --color: var(--app-text, #171a1f);
+  --border-width: 1.5px;
+  font-weight: 600;
+}
+
+.disable-confirm-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9995;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px;
+
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.disable-confirm-content {
+  width: 100%;
+  max-width: 320px;
+
+  padding: 24px 20px;
+
+  border-radius: 16px;
+
+  background: var(--app-surface, #ffffff);
+  border: 1px solid var(--app-border, #e8eaed);
+
+  text-align: center;
+}
+
+.disable-confirm-content h2 {
+  margin: 0 0 8px;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--app-text, #171a1f);
+}
+
+.disable-confirm-content p {
+  margin: 0 0 20px;
+  font-size: 13px;
+  line-height: 19px;
+  color: var(--app-text-secondary, #666);
+}
+
+.disable-confirm-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}

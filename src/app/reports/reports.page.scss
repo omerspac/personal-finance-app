@@ -1,0 +1,721 @@
+/* =========================================
+   OMFIN - REPORTS
+   Mobile-first UI
+   ========================================= */
+
+
+/* =========================================
+   PAGE
+   ========================================= */
+
+ion-content.reports-content {
+  --background: var(--app-background);
+}
+
+.reports-page {
+  width: 100%;
+  min-height: 100%;
+
+  box-sizing: border-box;
+
+  padding: 24px 16px 0px;
+}
+
+
+/* =========================================
+   PAGE HEADER
+   ========================================= */
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+
+  margin-bottom: 22px;
+}
+
+.page-label {
+  display: block;
+
+  margin-bottom: 3px;
+
+  font-size: 11px;
+  color: #8a919a;
+}
+
+.page-header h1 {
+  margin: 0;
+
+  font-size: 30px;
+  line-height: 31px;
+
+  font-weight: 750;
+
+  letter-spacing: -0.5px;
+
+  color: #171a1f;
+}
+
+
+/* =========================================
+   MONTH SELECTOR
+   ========================================= */
+
+.month-selector {
+  min-height: 36px;
+
+  padding: 0 10px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 5px;
+
+  border-radius: 10px;
+
+  background: #ffffff;
+
+  border: 1px solid #e8eaed;
+
+  color: #555d67;
+
+  font-size: 11px;
+
+  white-space: nowrap;
+}
+
+.month-selector ion-icon {
+  font-size: 14px;
+}
+
+
+/* =========================================
+   REPORT SECTION
+   ========================================= */
+
+.report-section {
+  margin-bottom: 26px;
+}
+
+
+/* =========================================
+   SECTION HEADER
+   ========================================= */
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 12px;
+}
+
+.section-header h2 {
+  margin: 0 0 3px;
+
+  font-size: 17px;
+  line-height: 22px;
+
+  font-weight: 700;
+
+  color: #20242a;
+}
+
+.section-header span {
+  font-size: 11px;
+
+  color: #8a919a;
+}
+
+
+/* =========================================
+   CHART CARD
+   ========================================= */
+
+.chart-card {
+  padding: 18px 14px 15px;
+
+  border-radius: 17px;
+
+  background: #ffffff;
+
+  border: 1px solid #e8eaed;
+
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.035);
+}
+
+
+/* =========================================
+   CHART LEGEND
+   ========================================= */
+
+.chart-legend {
+  display: flex;
+  align-items: center;
+
+  gap: 18px;
+
+  margin-bottom: 18px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+
+  gap: 6px;
+
+  font-size: 11px;
+
+  color: #737b85;
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+}
+
+.income-dot {
+  background: #31965b;
+}
+
+.expense-dot {
+  background: #d45b5b;
+}
+
+
+/* =========================================
+   BAR CHART
+   ========================================= */
+
+.bar-chart {
+  height: 190px;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(6, minmax(0, 1fr));
+
+  align-items: end;
+
+  gap: 7px;
+
+  padding-top: 8px;
+
+  border-bottom: 1px solid #e8eaed;
+}
+
+.chart-column {
+  height: 100%;
+
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: flex-end;
+  align-items: center;
+
+  gap: 7px;
+
+  color: #8a919a;
+
+  font-size: 9px;
+}
+
+.bars {
+  width: 100%;
+  height: 165px;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  gap: 3px;
+}
+
+.bar {
+  width: 10px;
+
+  min-height: 4px;
+
+  border-radius: 5px 5px 2px 2px;
+}
+
+.income-bar {
+  background: #31965b;
+}
+
+.expense-bar {
+  background: #d45b5b;
+}
+
+.active-month {
+  font-weight: 700;
+  color: #20242a;
+}
+
+
+/* =========================================
+   CATEGORY CARD
+   ========================================= */
+
+.category-card {
+  padding: 18px 14px;
+
+  border-radius: 17px;
+
+  background: #ffffff;
+
+  border: 1px solid #e8eaed;
+
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.035);
+}
+
+
+/* =========================================
+   DONUT CHART
+   ========================================= */
+
+.donut-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 22px;
+}
+
+.donut-chart {
+  width: 170px;
+  height: 170px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /*
+   * Temporary static chart.
+   * This will later be generated from SQLite data.
+   */
+  background:
+    conic-gradient(
+      #d97828 0deg 108deg,
+      #5576c9 108deg 180deg,
+      #8b6ac9 180deg 237.6deg,
+      #d45b5b 237.6deg 291.6deg,
+      #d4a13f 291.6deg 327.6deg,
+      #7b828c 327.6deg 360deg
+    );
+}
+
+.donut-chart::before {
+  content: "";
+
+  width: 116px;
+  height: 116px;
+
+  position: absolute;
+
+  border-radius: 50%;
+
+  background: #ffffff;
+}
+
+.donut-center {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+
+  text-align: center;
+}
+
+.donut-center span {
+  margin-bottom: 3px;
+
+  font-size: 10px;
+
+  color: #8a919a;
+}
+
+.donut-center strong {
+  font-size: 14px;
+
+  font-weight: 700;
+
+  color: #20242a;
+}
+
+
+/* =========================================
+   CATEGORY LIST
+   ========================================= */
+
+.category-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.category-item {
+  min-height: 45px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-bottom: 1px solid #eef0f2;
+}
+
+.category-item:last-child {
+  border-bottom: none;
+}
+
+.category-name {
+  display: flex;
+  align-items: center;
+
+  gap: 9px;
+
+  font-size: 12px;
+
+  color: #555d67;
+}
+
+.category-dot {
+  width: 9px;
+  height: 9px;
+
+  border-radius: 50%;
+}
+
+.food-dot {
+  background: #d97828;
+}
+
+.transport-dot {
+  background: #5576c9;
+}
+
+.shopping-dot {
+  background: #8b6ac9;
+}
+
+.bills-dot {
+  background: #d45b5b;
+}
+
+.entertainment-dot {
+  background: #d4a13f;
+}
+
+.other-dot {
+  background: #7b828c;
+}
+
+
+/* =========================================
+   CATEGORY VALUES
+   ========================================= */
+
+.category-value {
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-end;
+
+  gap: 2px;
+}
+
+.category-value strong {
+  font-size: 12px;
+
+  font-weight: 650;
+
+  color: #20242a;
+}
+
+.category-value span {
+  font-size: 9px;
+
+  color: #8a919a;
+}
+
+
+/* =========================================
+   SUMMARY GRID
+   ========================================= */
+
+.summary-grid {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 10px;
+}
+
+.summary-card {
+  min-width: 0;
+
+  padding: 15px;
+
+  border-radius: 15px;
+
+  background: #ffffff;
+
+  border: 1px solid #e8eaed;
+}
+
+.summary-card-icon {
+  width: 32px;
+  height: 32px;
+
+  margin-bottom: 11px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 9px;
+}
+
+.summary-card-icon ion-icon {
+  font-size: 17px;
+}
+
+.summary-card > span {
+  display: block;
+
+  margin-bottom: 5px;
+
+  font-size: 10px;
+
+  color: #7b828c;
+}
+
+.summary-card > strong {
+  display: block;
+
+  overflow: hidden;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  color: #20242a;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.income-summary {
+  background: #edf9f1;
+  color: #31965b;
+}
+
+.expense-summary {
+  background: #fff0f0;
+  color: #d45b5b;
+}
+
+.balance-summary {
+  background: #eef3ff;
+  color: #5576c9;
+}
+
+.transaction-summary {
+  background: #f3efff;
+  color: #8065c5;
+}
+
+
+/* =========================================
+   DARK MODE
+   ========================================= */
+
+:host-context(.dark) {
+
+  ion-content.reports-content {
+    --background: #111418;
+  }
+
+
+  /* Header */
+
+  .page-label {
+    color: #858c95;
+  }
+
+  .page-header h1 {
+    color: #f4f5f6;
+  }
+
+
+  /* Month selector */
+
+  .month-selector {
+    background: #1a1e23;
+
+    border-color: #2d3239;
+
+    color: #b3bac3;
+  }
+
+
+  /* Section */
+
+  .section-header h2 {
+    color: #f1f2f3;
+  }
+
+  .section-header span {
+    color: #858c95;
+  }
+
+
+  /* Chart */
+
+  .chart-card {
+    background: #1a1e23;
+
+    border-color: #2d3239;
+
+    box-shadow: none;
+  }
+
+  .legend-item {
+    color: #9299a2;
+  }
+
+  .bar-chart {
+    border-bottom-color: #2d3239;
+  }
+
+  .chart-column {
+    color: #858c95;
+  }
+
+  .active-month {
+    color: #f1f2f3;
+  }
+
+
+  /* Category */
+
+  .category-card {
+    background: #1a1e23;
+
+    border-color: #2d3239;
+
+    box-shadow: none;
+  }
+
+  .donut-chart::before {
+    background: #1a1e23;
+  }
+
+  .donut-center span {
+    color: #858c95;
+  }
+
+  .donut-center strong {
+    color: #f1f2f3;
+  }
+
+
+  .category-item {
+    border-bottom-color: #2d3239;
+  }
+
+  .category-name {
+    color: #b3bac3;
+  }
+
+  .category-value strong {
+    color: #f1f2f3;
+  }
+
+  .category-value span {
+    color: #858c95;
+  }
+
+
+  /* Summary */
+
+  .summary-card {
+    background: #1a1e23;
+
+    border-color: #2d3239;
+  }
+
+  .summary-card > span {
+    color: #858c95;
+  }
+
+  .summary-card > strong {
+    color: #f1f2f3;
+  }
+
+  .income-summary {
+    background: rgba(49, 150, 91, 0.14);
+  }
+
+  .expense-summary {
+    background: rgba(212, 91, 91, 0.14);
+  }
+
+  .balance-summary {
+    background: rgba(85, 118, 201, 0.14);
+  }
+
+  .transaction-summary {
+    background: rgba(128, 101, 197, 0.14);
+  }
+
+}
+
+
+/* =========================================
+   SMALL PHONES
+   ========================================= */
+
+@media (max-height: 680px) {
+
+  .reports-page {
+    padding-top: 18px;
+    padding-bottom: 12px;
+  }
+
+  .page-header {
+    margin-bottom: 18px;
+  }
+
+  .report-section {
+    margin-bottom: 20px;
+  }
+
+  .bar-chart {
+    height: 165px;
+  }
+
+  .bars {
+    height: 140px;
+  }
+
+  .donut-chart {
+    width: 150px;
+    height: 150px;
+  }
+
+  .donut-chart::before {
+    width: 102px;
+    height: 102px;
+  }
+
+}

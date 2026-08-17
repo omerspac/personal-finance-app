@@ -1,0 +1,113 @@
+.connection-lost-overlay {
+  position: fixed;
+  inset: 0;
+
+  z-index: 9990;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px;
+
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.connection-lost-content {
+  width: 100%;
+  max-width: 320px;
+
+  padding: 28px 22px;
+
+  border-radius: 18px;
+
+  background: var(--app-surface, #ffffff);
+  border: 1px solid var(--app-border, #e8eaed);
+
+  text-align: center;
+}
+
+.icon-circle {
+  width: 60px;
+  height: 60px;
+
+  margin: 0 auto 16px;
+
+  border-radius: 50%;
+
+  background: rgba(212, 91, 91, 0.10);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-circle ion-icon {
+  font-size: 28px;
+  color: #d45b5b;
+}
+
+.connection-lost-content h1 {
+  margin: 0 0 8px;
+
+  font-size: 18px;
+  font-weight: 750;
+
+  color: var(--app-text, #171a1f);
+}
+
+.connection-lost-content p {
+  margin: 0 0 20px;
+
+  font-size: 13px;
+  line-height: 19px;
+
+  color: var(--app-text-secondary, #666);
+}
+
+.button-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  gap: 10px;
+}
+
+.waiting-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 14px;
+
+  margin-bottom: 4px;
+}
+
+.spinner {
+  width: 30px;
+  height: 30px;
+
+  border-radius: 50%;
+
+  border: 3px solid var(--app-border, #e8eaed);
+  border-top-color: var(--app-text, #171a1f);
+
+  animation: connection-spin 0.7s linear infinite;
+}
+
+.waiting-text {
+  margin: 0 !important;
+}
+
+@keyframes connection-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+:host-context(.dark) {
+
+  .connection-lost-content {
+    background: var(--app-surface);
+  }
+
+}

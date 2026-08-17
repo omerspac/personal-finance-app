@@ -1,0 +1,72 @@
+.lock-screen-overlay {
+  position: fixed;
+  inset: 0;
+
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: var(--app-background, #f7f8fa);
+}
+
+.lock-content {
+  width: 100%;
+  max-width: 320px;
+
+  padding: 24px;
+
+  text-align: center;
+}
+
+.lock-icon {
+  width: 72px;
+  height: 72px;
+
+  margin: 0 auto 20px;
+
+  border-radius: 50%;
+
+  background: var(--app-surface, #ffffff);
+  border: 1px solid var(--app-border, #e8eaed);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lock-icon ion-icon {
+  font-size: 32px;
+  color: var(--app-text, #171a1f);
+}
+
+.lock-content h1 {
+  margin: 0 0 6px;
+
+  font-size: 20px;
+  font-weight: 700;
+
+  color: var(--app-text, #171a1f);
+}
+
+.lock-content p {
+  margin: 0 0 20px;
+
+  font-size: 14px;
+
+  color: var(--app-text-secondary, #666);
+}
+
+.error-message {
+  color: #d45b5b !important;
+  font-size: 13px;
+}
+
+:host-context(.dark) {
+
+  .lock-icon {
+    background: var(--app-surface);
+  }
+
+}

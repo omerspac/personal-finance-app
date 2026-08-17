@@ -1,0 +1,153 @@
+<div class="home-page">
+    <!-- =========================
+         BALANCE
+         ========================= -->
+
+    <section class="balance-section">
+
+      <p class="section-label">Total Balance</p>
+
+      <h2 class="total-balance">
+        Rs. {{ totalBalance | number:'1.0-0' }}
+      </h2>
+
+      <div class="balance-summary">
+
+        <div class="summary-item income">
+          <div class="summary-icon">
+            <ion-icon name="arrow-up-outline"></ion-icon>
+          </div>
+
+          <div>
+            <span>Income</span>
+            <strong>Rs. {{ totalIncome | number:'1.0-0' }}</strong>
+          </div>
+        </div>
+
+        <div class="summary-divider"></div>
+
+        <div class="summary-item expense">
+          <div class="summary-icon">
+            <ion-icon name="arrow-down-outline"></ion-icon>
+          </div>
+
+          <div>
+            <span>Expenses</span>
+            <strong>Rs. {{ totalExpenses | number:'1.0-0' }}</strong>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         CURRENT MONTH
+         ========================= -->
+
+    <div class="section-header">
+      <h2>This Month</h2>
+      <span>{{ currentMonthLabel }}</span>
+    </div>
+
+
+    <div class="monthly-cards">
+
+      <!-- Monthly Income -->
+      <div class="monthly-card">
+
+        <div class="card-icon income-icon">
+          <ion-icon name="trending-up-outline"></ion-icon>
+        </div>
+
+        <span>Income</span>
+
+        <strong>Rs. {{ monthlyIncome | number:'1.0-0' }}</strong>
+
+      </div>
+
+
+      <!-- Monthly Expenses -->
+      <div class="monthly-card">
+
+        <div class="card-icon expense-icon">
+          <ion-icon name="trending-down-outline"></ion-icon>
+        </div>
+
+        <span>Expenses</span>
+
+        <strong>Rs. {{ monthlyExpenses | number:'1.0-0' }}</strong>
+
+      </div>
+
+    </div>
+
+
+    <!-- =========================
+         RECENT TRANSACTIONS
+         ========================= -->
+
+    <div class="section-header transactions-header">
+
+      <h2>Recent Transactions</h2>
+
+      <ion-button
+        fill="clear"
+        size="small"
+        class="see-all-button"
+        (click)="openTransactions()">
+
+        See all
+
+        <ion-icon
+          slot="end"
+          name="chevron-forward-outline">
+        </ion-icon>
+
+      </ion-button>
+
+    </div>
+
+
+    <div class="transactions-list">
+
+      <div
+        class="transaction-item"
+        *ngFor="let transaction of todayTransactions">
+
+        <div class="transaction-left">
+
+          <div
+            class="transaction-icon"
+            [ngClass]="getTransactionIconClass(transaction)">
+            <ion-icon [name]="getTransactionIconName(transaction)"></ion-icon>
+          </div>
+
+          <div class="transaction-info">
+            <strong>{{ transaction.title }}</strong>
+            <span>{{ transaction.category }} · Today</span>
+          </div>
+
+        </div>
+
+        <strong
+          [class.income-amount]="transaction.type === 'income'"
+          [class.expense-amount]="transaction.type === 'expense'">
+          {{ transaction.type === 'income' ? '+' : '-' }}
+          Rs. {{ transaction.amount | number:'1.0-0' }}
+        </strong>
+
+      </div>
+
+      <div
+        class="transaction-item no-transactions"
+        *ngIf="todayTransactions.length === 0">
+        <div class="transaction-info">
+          <strong>No transactions today</strong>
+          <span>Add a transaction to see it here.</span>
+        </div>
+      </div>
+
+    </div>
+  </div>

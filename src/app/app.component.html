@@ -1,0 +1,13 @@
+<ion-app>
+
+  <ion-router-outlet></ion-router-outlet>
+
+  <app-lock-screen *ngIf="lockService.isLocked$ | async"></app-lock-screen>
+
+  <app-connection-lost
+    *ngIf="((networkService.isOnline$ | async) === false) && ((networkService.dismissed$ | async) === false)">
+  </app-connection-lost>
+
+  <app-loading *ngIf="isInitializing"></app-loading>
+
+</ion-app>

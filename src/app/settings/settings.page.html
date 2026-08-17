@@ -1,0 +1,185 @@
+<div class="settings-page">
+    <!-- =========================================
+         HEADER
+         ========================================= -->
+    <div class="settings-header">
+      <h1>SETTINGS</h1>
+      <p>Manage your app preferences</p>
+    </div>
+    <!-- =========================================
+         APPEARANCE
+         ========================================= -->
+    <!-- <div class="settings-group">
+      <div class="group-title">
+        Appearance
+      </div>
+      <div class="settings-list">
+        <div class="setting-row">
+          <div class="setting-icon appearance-icon">
+            <ion-icon name="moon-outline"></ion-icon>
+          </div>
+          <div class="setting-content">
+            <strong>Dark Mode</strong>
+            <span>
+              Switch between light and dark theme
+            </span>
+          </div>
+         <ion-toggle
+          [checked]="isDarkMode"
+          (ionChange)="onThemeToggle($event)">
+        </ion-toggle>
+        </div>
+      </div>
+    </div> -->
+    <!-- =========================================
+         SECURITY
+         ========================================= -->
+    <div class="settings-group">
+      <div class="group-title">
+        Security
+      </div>
+      <div class="settings-list">
+        <div class="setting-row">
+          <div class="setting-icon security-icon">
+            <ion-icon name="finger-print-outline"></ion-icon>
+          </div>
+          <div class="setting-content">
+            <strong>Fingerprint Lock</strong>
+            <span>
+              Unlock OmFin with your fingerprint
+            </span>
+          </div>
+          <div class="fingerprint-switch">
+
+            <input
+              #fingerprintToggle
+              type="checkbox"
+              role="switch"
+              aria-label="Fingerprint Lock"
+              [checked]="fingerprintEnabled"
+              (click)="onFingerprintToggleTap($event)">
+
+            <span class="fingerprint-switch-track" aria-hidden="true">
+              <span class="fingerprint-switch-thumb"></span>
+            </span>
+
+          </div>
+        </div>
+
+        <!-- <div class="setting-row">
+          <div class="setting-icon security-icon">
+            <ion-icon name="scan-outline"></ion-icon>
+          </div>
+          <div class="setting-content">
+            <strong>Face Lock</strong>
+            <span>
+              Unlock OmFin with Face ID
+            </span>
+          </div>
+          <ion-toggle
+            [(ngModel)]="faceLockEnabled"
+            (ionChange)="toggleFaceLock()">
+          </ion-toggle>
+        </div> -->
+      </div>
+    </div>
+    <!-- =========================================
+         REMINDERS
+         ========================================= -->
+    <div class="settings-group">
+      <div class="group-title">
+        Reminders
+      </div>
+      <div class="settings-list">
+        <div class="setting-row">
+          <div class="setting-icon notification-icon">
+            <ion-icon name="notifications-outline"></ion-icon>
+          </div>
+          <div class="setting-content">
+            <strong>Payment Reminders</strong>
+            <span>
+              Get notified about upcoming bills
+            </span>
+          </div>
+          <ion-toggle
+            [(ngModel)]="notificationsEnabled"
+            (ionChange)="toggleNotifications()">
+          </ion-toggle>
+        </div>
+      </div>
+    </div>
+    <!-- =========================================
+         DATA
+         ========================================= -->
+    <div class="settings-group">
+      <div class="group-title">
+        Data
+      </div>
+      <div class="settings-list">
+        <!-- Export -->
+        <button
+          class="setting-row action-row"
+          [disabled]="isExporting"
+          (click)="exportCSV()">
+          <div class="setting-icon export-icon">
+            <ion-icon name="download-outline"></ion-icon>
+          </div>
+          <div class="setting-content">
+            <strong>Export Transactions</strong>
+            <span>
+              {{ isExporting ? 'Exporting...' : 'Save your transactions as a CSV file' }}
+            </span>
+          </div>
+          <ion-icon
+            class="row-arrow"
+            name="chevron-forward-outline">
+          </ion-icon>
+        </button>
+        <!-- Sync -->
+        <button
+          class="setting-row action-row"
+          [disabled]="isSyncing"
+          (click)="syncData()">
+          <div class="setting-icon sync-icon">
+            <ion-icon name="cloud-outline"></ion-icon>
+          </div>
+          <div class="setting-content">
+            <strong>Cloud Sync</strong>
+            <span>
+              {{ isSyncing ? 'Syncing...' : 'Sync your data with Firebase' }}
+            </span>
+          </div>
+          <ion-icon
+            class="row-arrow"
+            name="chevron-forward-outline">
+          </ion-icon>
+        </button>
+      </div>
+    </div>
+    <!-- =========================================
+         LOGOUT
+         ========================================= -->
+    <button
+      class="logout-button"
+      (click)="logout()">
+      <ion-icon name="log-out-outline"></ion-icon>
+      <span>Log Out</span>
+    </button>
+    <div class="settings-footer">
+      OmFin - v1.0.0
+    </div>
+  </div>
+
+
+  <!-- =========================================
+     CLOUD SYNC TOAST
+     ========================================= -->
+
+<ion-toast
+  [isOpen]="isSyncToastOpen"
+  [message]="syncToastMessage"
+  [duration]="3000"
+  position="bottom"
+  [cssClass]="syncToastType"
+  (didDismiss)="isSyncToastOpen = false">
+</ion-toast>

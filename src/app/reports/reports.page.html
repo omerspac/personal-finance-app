@@ -1,0 +1,215 @@
+<div class="reports-page">
+
+    <!-- Page Header -->
+    <div class="page-header">
+      <div>
+        <h1>REPORTS</h1>
+      </div>
+
+      <div class="month-selector" (click)="openMonthSelector()">
+        <span>{{ selectedMonthLabel }}</span>
+        <ion-icon name="chevron-down-outline"></ion-icon>
+      </div>
+    </div>
+
+
+    <!-- =========================================
+         INCOME VS EXPENSE
+         ========================================= -->
+
+    <section class="report-section">
+
+      <div class="section-header">
+        <div>
+          <h2>Income vs Expenses</h2>
+          <span>Monthly comparison</span>
+        </div>
+      </div>
+
+
+      <div class="chart-card">
+
+        <!-- Chart Legend -->
+        <div class="chart-legend">
+
+          <div class="legend-item">
+            <span class="legend-dot income-dot"></span>
+            <span>Income</span>
+          </div>
+
+          <div class="legend-item">
+            <span class="legend-dot expense-dot"></span>
+            <span>Expenses</span>
+          </div>
+
+        </div>
+
+
+        <!-- Simple Bar Chart -->
+        <div class="bar-chart">
+
+         <div
+           class="chart-column"
+           *ngFor="let month of monthlySeries"
+           [class.active-month]="month.isCurrentMonth">
+           <div class="bars">
+             <div
+               class="bar income-bar"
+               [style.height.%]="month.incomeHeight">
+             </div>
+             <div
+               class="bar expense-bar"
+               [style.height.%]="month.expensesHeight">
+             </div>
+           </div>
+           <span>{{ month.label }}</span>
+         </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================
+         CATEGORY EXPENSES
+         ========================================= -->
+
+    <section class="report-section">
+
+      <div class="section-header">
+        <div>
+          <h2>Expenses by Category</h2>
+          <span>{{ selectedMonthLabel }}</span>
+        </div>
+      </div>
+
+
+      <div class="category-card">
+
+        <!-- Donut Chart -->
+        <div class="donut-wrapper">
+
+          <div
+            class="donut-chart"
+            [style.background]="monthlyExpensesDonutStyle">
+
+            <div class="donut-center">
+              <span>Total</span>
+              <strong>Rs. {{ monthlyExpenses | number:'1.0-0' }}</strong>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- Category List -->
+        <div class="category-list">
+
+          <div
+            class="category-item"
+            *ngFor="let category of categoryExpenses">
+
+            <div class="category-name">
+              <span class="category-dot" [ngClass]="category.dotClass"></span>
+              <span>{{ category.name }}</span>
+            </div>
+
+            <div class="category-value">
+              <strong>Rs. {{ category.amount | number:'1.0-0' }}</strong>
+              <span>{{ category.percent | number:'1.0-0' }}%</span>
+            </div>
+
+          </div>
+
+          <div class="category-item" *ngIf="categoryExpenses.length === 0">
+            <div class="category-name">
+              <span>No expense data for this month yet.</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================
+         SUMMARY
+         ========================================= -->
+
+    <section class="report-section">
+
+      <div class="section-header">
+        <div>
+          <h2>Summary</h2>
+          <span>This month's performance</span>
+        </div>
+      </div>
+
+
+      <div class="summary-grid">
+
+        <div class="summary-card">
+
+          <div class="summary-card-icon income-summary">
+            <ion-icon name="trending-up-outline"></ion-icon>
+          </div>
+
+          <span>Total Income</span>
+          <strong>Rs. {{ monthlyIncome | number:'1.0-0' }}</strong>
+
+        </div>
+
+
+        <div class="summary-card">
+
+          <div class="summary-card-icon expense-summary">
+            <ion-icon name="trending-down-outline"></ion-icon>
+          </div>
+
+          <span>Total Expenses</span>
+          <strong>Rs. {{ monthlyExpenses | number:'1.0-0' }}</strong>
+
+        </div>
+
+
+        <div class="summary-card">
+
+          <div class="summary-card-icon balance-summary">
+            <ion-icon name="wallet-outline"></ion-icon>
+          </div>
+
+          <span>Net Savings</span>
+          <strong>Rs. {{ monthlyNetSavings | number:'1.0-0' }}</strong>
+
+        </div>
+
+
+        <div class="summary-card">
+
+          <div class="summary-card-icon transaction-summary">
+            <ion-icon name="receipt-outline"></ion-icon>
+          </div>
+
+          <span>Transactions</span>
+          <strong>{{ monthlyTransactionsCount }}</strong>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- Month Filter Popup -->
+    <ion-action-sheet
+      [isOpen]="showMonthSheet"
+      header="Select Month"
+      [buttons]="monthActionButtons"
+      (didDismiss)="showMonthSheet = false">
+    </ion-action-sheet>
+
+  </div>

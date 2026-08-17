@@ -1,0 +1,328 @@
+<div class="login-page">
+
+    <!-- Theme Toggle -->
+    <div style="display: flex; justify-content: flex-end; padding: 8px 0;">
+
+      <ion-button
+        fill="clear"
+        style="--padding-start: 0; --padding-end: 0; width: 44px; height: 44px; --color: var(--app-text-secondary, #666);"
+        type="button"
+        (click)="toggleTheme()">
+
+        <ion-icon
+          [name]="isDarkMode ? 'moon-outline' : 'sunny-outline'"
+          style="font-size: 22px;">
+        </ion-icon>
+
+      </ion-button>
+
+    </div>
+
+
+    <!-- Top Branding -->
+    <div class="brand-section">
+
+      <div class="logo">
+        <img src="/assets/icon/OmFin-logo.png" alt="OmFin">
+      </div>
+
+      <h1>OmFin</h1>
+      <p>Personal finance, made simple.</p>
+
+    </div>
+
+
+    <!-- =========================================
+         LOGIN VIEW
+         ========================================= -->
+
+    <div class="login-section" *ngIf="view === 'login'">
+
+      <form (ngSubmit)="login()">
+
+        <!-- Email -->
+        <div class="input-group">
+
+          <ion-label>Email address</ion-label>
+
+          <ion-item lines="none" class="input-item">
+            <ion-icon
+              slot="start"
+              name="mail-outline">
+            </ion-icon>
+
+            <ion-input
+              type="email"
+              placeholder="you@example.com"
+              [(ngModel)]="email"
+              name="email"
+              autocomplete="email"
+              inputmode="email"
+              required>
+            </ion-input>
+          </ion-item>
+
+        </div>
+
+
+        <!-- Password -->
+        <div class="input-group">
+
+          <ion-label>Password</ion-label>
+
+          <ion-item lines="none" class="input-item">
+
+            <ion-icon
+              slot="start"
+              name="lock-closed-outline">
+            </ion-icon>
+
+            <ion-input
+              [type]="showPassword ? 'text' : 'password'"
+              placeholder="Enter your password"
+              [(ngModel)]="password"
+              name="password"
+              autocomplete="current-password"
+              required>
+            </ion-input>
+
+            <ion-button
+              slot="end"
+              fill="clear"
+              class="password-toggle"
+              type="button"
+              (click)="togglePassword()">
+
+              <ion-icon
+                [name]="showPassword ? 'eye-off-outline' : 'eye-outline'">
+              </ion-icon>
+
+            </ion-button>
+
+          </ion-item>
+
+        </div>
+
+
+        <!-- Fingerprint Toggle -->
+        <div
+          class="fingerprint-toggle-row"
+          style="display: flex; align-items: center; gap: 10px; margin: 14px 0;">
+
+          <ion-icon
+            name="finger-print-outline"
+            style="font-size: 20px; color: var(--app-text-secondary, #666);">
+          </ion-icon>
+
+          <span style="font-size: 13px; font-weight: 600; color: var(--app-text-secondary, #666); flex: 1;">
+            Fingerprint Login
+          </span>
+
+          <div class="fingerprint-switch">
+
+            <input
+              #fingerprintToggle
+              type="checkbox"
+              role="switch"
+              aria-label="Fingerprint Login"
+              [checked]="fingerprintToggleEnabled"
+              (click)="onFingerprintToggleTap($event)">
+
+            <span class="fingerprint-switch-track" aria-hidden="true">
+              <span class="fingerprint-switch-thumb"></span>
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <!-- Forgot Password row -->
+        <div class="forgot-password">
+
+          <ion-button
+            fill="clear"
+            size="small"
+            type="button"
+            (click)="showForgotPassword()">
+            Forgot password?
+          </ion-button>
+
+        </div>
+
+
+        <!-- Login -->
+        <ion-button
+          expand="block"
+          type="submit"
+          class="login-button"
+          [disabled]="isLoading">
+
+          {{ isLoading ? 'Logging in...' : 'Login' }}
+
+        </ion-button>
+
+
+        <!-- Biometric Login Button -->
+        <ion-button
+          *ngIf="biometricLoginAvailable && fingerprintToggleEnabled"
+          expand="block"
+          fill="outline"
+          class="biometric-login-button"
+          type="button"
+          [disabled]="isBiometricLoading"
+          (click)="loginWithBiometrics()">
+          <ion-icon slot="start" name="finger-print-outline"></ion-icon>
+          {{ isBiometricLoading ? 'Scanning...' : 'Login with Fingerprint' }}
+        </ion-button>
+
+      </form>
+
+    </div>
+
+
+    <!-- =========================================
+         FORGOT PASSWORD VIEW
+         ========================================= -->
+
+    <div class="login-section" *ngIf="view === 'forgot'">
+
+      <button
+        class="back-link"
+        type="button"
+        (click)="backToLogin()">
+
+        <ion-icon name="arrow-back-outline"></ion-icon>
+        <span>Back to login</span>
+
+      </button>
+
+      <form (ngSubmit)="sendResetEmail()">
+
+        <div class="input-group">
+
+          <ion-label>Email address</ion-label>
+
+          <ion-item lines="none" class="input-item">
+
+            <ion-icon
+              slot="start"
+              name="mail-outline">
+            </ion-icon>
+
+            <ion-input
+              type="email"
+              placeholder="you@example.com"
+              [(ngModel)]="resetEmail"
+              name="resetEmail"
+              autocomplete="email"
+              inputmode="email"
+              required>
+            </ion-input>
+
+          </ion-item>
+
+          <p class="field-hint">
+            We'll send a password reset link to this email.
+          </p>
+
+        </div>
+
+
+        <!-- Success Message -->
+        <p
+          class="success-message"
+          *ngIf="resetMessage">
+
+          {{ resetMessage }}
+
+        </p>
+
+
+        <!-- Error Message -->
+        <p
+          class="error-message"
+          *ngIf="resetErrorMessage">
+
+          {{ resetErrorMessage }}
+
+        </p>
+
+
+        <ion-button
+          expand="block"
+          type="submit"
+          class="login-button"
+          [disabled]="isSendingReset || resendCooldown > 0">
+
+          {{ isSendingReset ? 'Sending...' : (resendCooldown > 0 ? 'Resend in ' + resendCooldown + 's' : (resetMessage ? 'Send Again' : 'Send Reset Link')) }}
+
+        </ion-button>
+
+      </form>
+
+    </div>
+
+
+    <!-- Bottom Text -->
+    <div class="bottom-section">
+      <p>
+        Your finances. Your control.
+      </p>
+    </div>
+
+    <!-- =========================================
+         DISABLE FINGERPRINT CONFIRMATION
+         ========================================= -->
+    <div
+      class="disable-confirm-overlay"
+      *ngIf="showDisableConfirm">
+
+      <div class="disable-confirm-content">
+
+        <h2>Disable Fingerprint Lock?</h2>
+
+        <p>
+          Are you sure you want to disable fingerprint lock?
+          You will have to re-enable it from Settings.
+        </p>
+
+        <div class="disable-confirm-buttons">
+
+          <ion-button
+            fill="outline"
+            type="button"
+            (click)="cancelDisableFingerprint()">
+
+            Cancel
+
+          </ion-button>
+
+          <ion-button
+            type="button"
+            (click)="confirmDisableFingerprint()">
+
+            Confirm
+
+          </ion-button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- =========================================
+         LOGIN ERROR / INFO TOAST
+         ========================================= -->
+
+    <ion-toast
+      [isOpen]="isLoginToastOpen"
+      [message]="loginToastMessage"
+      [duration]="3000"
+      position="bottom"
+      cssClass="login-error-toast"
+      (didDismiss)="isLoginToastOpen = false">
+    </ion-toast>
+
+  </div>

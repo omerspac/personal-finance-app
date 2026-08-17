@@ -1,0 +1,111 @@
+<ion-content [fullscreen]="true" class="app-shell-content">
+
+  <!-- =========================================
+       TOP BAR
+       ========================================= -->
+
+  <div class="top-bar">
+
+    <div class="greeting">
+      <h1>OmFin</h1>
+    </div>
+
+    <div class="top-actions">
+
+      <!-- Theme -->
+      <ion-button
+        fill="clear"
+        class="top-icon-button"
+        (click)="toggleTheme()">
+
+        <ion-icon
+          [name]="isDarkMode ? 'moon-outline' : 'sunny-outline'">
+        </ion-icon>
+
+      </ion-button>
+
+
+      <!-- Logout -->
+      <ion-button
+        fill="clear"
+        class="top-icon-button"
+        (click)="logout()">
+
+        <ion-icon name="log-out-outline"></ion-icon>
+
+      </ion-button>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================================
+       CURRENT PAGE
+       ========================================= -->
+
+<div class="shell-content">
+  <router-outlet></router-outlet>
+</div>
+
+
+  <!-- =========================================
+       BOTTOM NAVIGATION
+       ========================================= -->
+
+  <div class="bottom-navigation">
+
+    <!-- Dashboard -->
+    <button
+      class="nav-item"
+      [class.active]="currentPage === 'home'"
+      (click)="goTo('home')">
+
+      <ion-icon name="home-outline"></ion-icon>
+
+      <span>Dashboard</span>
+
+    </button>
+
+
+    <!-- Transactions -->
+    <button
+      class="nav-item"
+      [class.active]="currentPage === 'transactions'"
+      (click)="goTo('transactions')">
+
+      <ion-icon name="receipt-outline"></ion-icon>
+
+      <span>Transactions</span>
+
+    </button>
+
+
+    <!-- Reports -->
+    <button
+      class="nav-item"
+      [class.active]="currentPage === 'reports'"
+      (click)="goTo('reports')">
+
+      <ion-icon name="bar-chart-outline"></ion-icon>
+
+      <span>Reports</span>
+
+    </button>
+
+
+    <!-- Settings -->
+    <button
+      class="nav-item"
+      [class.active]="currentPage === 'settings'"
+      (click)="goTo('settings')">
+
+      <ion-icon name="settings-outline"></ion-icon>
+
+      <span>Settings</span>
+
+    </button>
+
+  </div>
+
+</ion-content>

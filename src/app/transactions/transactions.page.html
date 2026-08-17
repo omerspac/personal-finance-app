@@ -1,0 +1,220 @@
+<!-- Main Content -->
+  <div class="transactions-page">
+
+    <!-- Search -->
+    <div class="search-wrapper">
+
+      <ion-icon name="search-outline"></ion-icon>
+
+      <ion-input
+        type="search"
+        placeholder="Search transactions..."
+        [(ngModel)]="searchText">
+      </ion-input>
+
+    </div>
+
+
+    <!-- Filters -->
+    <div class="filter-row">
+
+      <button
+        class="filter-chip"
+        [class.active]="typeFilter === 'all'"
+        (click)="setTypeFilter('all')">
+
+        All
+
+      </button>
+
+      <button
+        class="filter-chip"
+        [class.active]="typeFilter === 'income'"
+        (click)="setTypeFilter('income')">
+
+        Income
+
+      </button>
+
+      <button
+        class="filter-chip"
+        [class.active]="typeFilter === 'expense'"
+        (click)="setTypeFilter('expense')">
+
+        Expenses
+
+      </button>
+
+      <button
+        class="filter-chip category-filter"
+        [class.active]="categoryFilter !== null"
+        (click)="openCategoryFilter()">
+
+        <span>{{ categoryFilter ? categoryFilter : 'Category' }}</span>
+
+        <ion-icon name="chevron-down-outline"></ion-icon>
+
+      </button>
+
+    </div>
+
+
+    <!-- Transaction Section -->
+    <div class="section-header">
+
+      <div>
+        <h2>All Transactions</h2>
+        <span>Recent activity</span>
+      </div>
+
+      <span class="transaction-count">
+        {{ filteredTransactions.length }}
+      </span>
+
+    </div>
+
+
+    <!-- Transaction List -->
+    <div class="transactions-list">
+
+      <!-- Transaction -->
+      <div
+        class="transaction-item"
+        *ngFor="let transaction of filteredTransactions">
+
+        <div class="transaction-left">
+
+          <div
+            class="transaction-icon"
+            [class.income-icon]="transaction.type === 'income'"
+            [class.expense-icon]="transaction.type === 'expense'">
+
+            <ion-icon
+              [name]="transaction.type === 'income'
+                ? 'arrow-down-outline'
+                : 'arrow-up-outline'">
+            </ion-icon>
+
+          </div>
+
+
+          <div class="transaction-info">
+
+            <strong>
+              {{ transaction.title }}
+            </strong>
+
+            <span>
+              {{ transaction.category }} • {{ transaction.date }}
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="transaction-right">
+
+          <strong
+            [class.income-amount]="transaction.type === 'income'"
+            [class.expense-amount]="transaction.type === 'expense'">
+
+            {{ transaction.type === 'income' ? '+' : '-' }}
+            Rs. {{ transaction.amount }}
+
+          </strong>
+
+
+          <div class="transaction-actions">
+
+            <button
+              class="edit-button"
+              (click)="editTransaction(transaction)">
+
+              <ion-icon name="create-outline"></ion-icon>
+
+            </button>
+
+            <button
+              class="delete-button"
+              (click)="deleteTransaction(transaction)">
+
+              <ion-icon name="trash-outline"></ion-icon>
+
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Empty State -->
+      <div
+        class="empty-state"
+        *ngIf="filteredTransactions.length === 0">
+
+        <div class="empty-icon">
+          <ion-icon name="receipt-outline"></ion-icon>
+        </div>
+
+        <h3>No transactions yet</h3>
+
+        <p>
+          Add your first income or expense to start tracking your money.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- Add Transaction Button -->
+  <ion-fab
+    vertical="bottom"
+    horizontal="end"
+    slot="fixed"
+    class="add-transaction-fab">
+
+    <ion-fab-button
+      (click)="addTransaction()">
+
+      <ion-icon name="add-outline"></ion-icon>
+
+    </ion-fab-button>
+
+  </ion-fab>
+
+  <!-- Delete Transaction Popup -->
+  <ion-alert
+  [isOpen]="showDeleteAlert"
+  header="Delete Transaction?"
+  message="Are you sure you want to delete this transaction? This action cannot be undone."
+  [buttons]="[
+    {
+      text: 'Cancel',
+      role: 'cancel',
+      handler: cancelDelete.bind(this)
+    },
+    {
+      text: 'Delete',
+      role: 'destructive',
+      handler: confirmDelete.bind(this)
+    }
+  ]"
+  (didDismiss)="cancelDelete()">
+</ion-alert>
+
+  <!-- Category Filter Popup -->
+  <ion-action-sheet
+    [isOpen]="showCategorySheet"
+    header="Filter by Category"
+    [buttons]="categoryActionButtons"
+    (didDismiss)="showCategorySheet = false">
+  </ion-action-sheet>
+
+  <br/>
+  <br/>
+  <br/>

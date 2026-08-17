@@ -1,0 +1,70 @@
+/*
+ * App Global CSS
+ */
+
+/* =========================================
+   IONIC CORE
+   ========================================= */
+
+@import "@ionic/angular/css/core.css";
+
+@import "@ionic/angular/css/normalize.css";
+@import "@ionic/angular/css/structure.css";
+@import "@ionic/angular/css/typography.css";
+@import "@ionic/angular/css/display.css";
+
+@import "@ionic/angular/css/padding.css";
+@import "@ionic/angular/css/float-elements.css";
+@import "@ionic/angular/css/text-alignment.css";
+@import "@ionic/angular/css/text-transformation.css";
+@import "@ionic/angular/css/flex-utils.css";
+
+
+/* =========================================
+   OMFIN GLOBAL THEME
+   ========================================= */
+
+:root {
+
+  /* Backgrounds */
+  --app-background: #f7f8fa;
+  --app-surface: #ffffff;
+  --app-surface-secondary: #f1f3f5;
+
+  /* Text */
+  --app-text: #171a1f;
+  --app-text-secondary: #7b828c;
+  --app-text-muted: #9299a2;
+
+  /* Borders */
+  --app-border: #e8eaed;
+
+  /* Navigation */
+  --app-nav-background: #ffffff;
+
+}
+
+
+/* =========================================
+   DARK MODE
+   ========================================= */
+
+html.dark {
+
+  /* Backgrounds */
+  --app-background: #111418;
+  --app-surface: #1a1e23;
+  --app-surface-secondary: #20252d;
+
+  /* Text */
+  --app-text: #f1f2f3;
+  --app-text-secondary: #9299a2;
+  --app-text-muted: #858c95;
+
+  /* Borders */
+  --app-border: #2d3239;
+
+  /* Navigation */
+  --app-nav-background: #191d22;
+
+}

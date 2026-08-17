@@ -1,0 +1,30 @@
+<div class="lock-screen-overlay">
+
+  <div class="lock-content">
+
+    <div class="lock-icon">
+      <ion-icon name="lock-closed-outline"></ion-icon>
+    </div>
+
+    <h1>OmFin is Locked</h1>
+
+    <p>Verify your identity to continue</p>
+
+    <p class="error-message" *ngIf="errorMessage">
+      {{ errorMessage }}
+    </p>
+
+    <ion-button
+      expand="block"
+      [disabled]="isUnlocking"
+      (click)="tryUnlock()">
+
+      <ion-icon slot="start" name="finger-print-outline"></ion-icon>
+
+      {{ isUnlocking ? 'Verifying...' : 'Unlock' }}
+
+    </ion-button>
+
+  </div>
+
+</div>

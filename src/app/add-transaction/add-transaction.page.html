@@ -1,0 +1,271 @@
+ <div class="add-transaction-page">
+
+    <!-- Header -->
+    <div class="page-header">
+
+      <button
+        class="back-button"
+        type="button"
+        (click)="goBack()">
+
+        <ion-icon name="arrow-back-outline"></ion-icon>
+
+      </button>
+
+      <div>
+        <h1>Add Transaction</h1>
+        <p>Record your income or expense</p>
+      </div>
+
+    </div>
+
+
+    <!-- Transaction Form -->
+    <form
+      class="transaction-form"
+      (ngSubmit)="saveTransaction()">
+
+      <!-- Title -->
+      <div class="form-group">
+
+        <label>Title</label>
+
+        <div class="input-wrapper">
+
+          <ion-icon name="create-outline"></ion-icon>
+
+          <ion-input
+            type="text"
+            placeholder="e.g. Grocery shopping"
+            [(ngModel)]="title"
+            name="title"
+            required>
+          </ion-input>
+
+        </div>
+
+      </div>
+
+
+      <!-- Amount -->
+      <div class="form-group">
+
+        <label>Amount</label>
+
+        <div class="input-wrapper">
+
+          <span class="currency">Rs.</span>
+
+          <ion-input
+            type="number"
+            inputmode="decimal"
+            placeholder="0"
+            [(ngModel)]="amount"
+            name="amount"
+            required>
+          </ion-input>
+
+        </div>
+
+      </div>
+
+
+      <!-- Transaction Type -->
+      <div class="form-group">
+
+        <label>Type</label>
+
+        <div class="type-selector">
+
+          <button
+            type="button"
+            class="type-button"
+            [class.active-income]="type === 'income'"
+            (click)="type = 'income'">
+
+            <ion-icon name="arrow-down-outline"></ion-icon>
+
+            <span>Income</span>
+
+          </button>
+
+
+          <button
+            type="button"
+            class="type-button"
+            [class.active-expense]="type === 'expense'"
+            (click)="type = 'expense'">
+
+            <ion-icon name="arrow-up-outline"></ion-icon>
+
+            <span>Expense</span>
+
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- Category -->
+      <div class="form-group">
+
+        <label>Category</label>
+
+        <div class="input-wrapper">
+
+          <ion-icon name="grid-outline"></ion-icon>
+
+          <select
+            [(ngModel)]="category"
+            name="category"
+            required>
+
+            <option
+              *ngFor="let item of categories"
+              [value]="item">
+
+              {{ item }}
+
+            </option>
+
+          </select>
+
+          <ion-icon
+            class="select-arrow"
+            name="chevron-down-outline">
+          </ion-icon>
+
+        </div>
+
+      </div>
+
+
+      <!-- Date -->
+      <div class="form-group">
+
+        <label>Date</label>
+
+        <div class="input-wrapper">
+
+          <ion-icon name="calendar-outline"></ion-icon>
+
+          <ion-input
+            type="date"
+            [(ngModel)]="date"
+            name="date"
+            required>
+          </ion-input>
+
+        </div>
+
+      </div>
+
+      <!-- Time - Bills Only -->
+      <div
+        class="form-group"
+        *ngIf="category === 'Bills'">
+
+        <label>Due Time</label>
+
+        <div class="time-selector">
+
+          <!-- Hour -->
+          <div class="time-select-wrapper">
+
+            <select
+              [(ngModel)]="timeHour"
+              name="timeHour">
+
+              <option
+                *ngFor="let hour of hours"
+                [value]="hour">
+
+                {{ hour }}
+
+              </option>
+
+            </select>
+
+          </div>
+
+          <span class="time-colon">:</span>
+
+          <!-- Minute -->
+          <div class="time-select-wrapper">
+
+            <select
+              [(ngModel)]="timeMinute"
+              name="timeMinute">
+
+              <option
+                *ngFor="let minute of minutes"
+                [value]="minute">
+
+                {{ minute }}
+
+              </option>
+
+            </select>
+
+          </div>
+
+          <!-- AM / PM -->
+          <div class="time-select-wrapper period-select">
+
+            <select
+              [(ngModel)]="timePeriod"
+              name="timePeriod">
+
+              <option value="AM">
+                AM
+              </option>
+
+              <option value="PM">
+                PM
+              </option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Notes -->
+      <div class="form-group">
+
+        <label>Notes <span>(Optional)</span></label>
+
+        <div class="textarea-wrapper">
+
+          <ion-textarea
+            placeholder="Add some notes..."
+            [(ngModel)]="notes"
+            name="notes"
+            rows="4">
+          </ion-textarea>
+
+        </div>
+
+      </div>
+
+
+      <!-- Save -->
+      <button
+        type="submit"
+        class="save-button"
+        [disabled]="isSaving">
+
+        <ion-icon name="checkmark-outline"></ion-icon>
+
+        <span>
+          {{ isSaving ? 'Saving...' : 'Add Transaction' }}
+        </span>
+
+      </button>
+
+    </form>
+
+  </div>

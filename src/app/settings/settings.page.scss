@@ -1,0 +1,665 @@
+/* =========================================
+   OMFIN - SETTINGS
+   Native mobile-style settings UI
+   ========================================= */
+
+ion-content.settings-content {
+  --background: var(--app-background);
+}
+
+
+/* =========================================
+   PAGE
+   ========================================= */
+
+.settings-page {
+  width: 100%;
+  min-height: 100%;
+
+  box-sizing: border-box;
+
+  padding: 28px 16px 14px;
+}
+
+
+/* =========================================
+   HEADER
+   ========================================= */
+
+.settings-header {
+  padding: 4px 4px 26px;
+}
+
+.settings-header h1 {
+  margin: 0 0 5px;
+
+  font-size: 30px;
+  line-height: 36px;
+
+  font-weight: 750;
+
+  letter-spacing: -0.7px;
+
+  color: #171a1f;
+}
+
+.settings-header p {
+  margin: 0;
+
+  font-size: 13px;
+
+  color: #858c95;
+}
+
+
+/* =========================================
+   SETTINGS GROUP
+   ========================================= */
+
+.settings-group {
+  margin-bottom: 25px;
+}
+
+.group-title {
+  margin: 0 0 8px 7px;
+
+  font-size: 12px;
+
+  font-weight: 650;
+
+  color: #858c95;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.4px;
+}
+
+
+/* =========================================
+   SETTINGS LIST
+   ========================================= */
+
+.settings-list {
+  overflow: hidden;
+
+  border-radius: 18px;
+
+  background: #ffffff;
+
+  border: 1px solid #e9ebee;
+}
+
+
+/* =========================================
+   SETTING ROW
+   ========================================= */
+
+.setting-row {
+  width: 100%;
+  min-height: 74px;
+
+  padding: 12px 13px;
+
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  border: none;
+
+  border-bottom: 1px solid #eef0f2;
+
+  background: transparent;
+
+  font-family: inherit;
+
+  text-align: left;
+
+  -webkit-tap-highlight-color: transparent;
+}
+
+.setting-row:last-child {
+  border-bottom: none;
+}
+
+
+/* =========================================
+   ICON
+   ========================================= */
+
+.setting-icon {
+  width: 42px;
+  height: 42px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 13px;
+}
+
+.setting-icon ion-icon {
+  font-size: 20px;
+}
+
+
+/* =========================================
+   ICON COLORS
+   ========================================= */
+
+.appearance-icon {
+  background: #f0f2f5;
+  color: #555d67;
+}
+
+.security-icon {
+  background: #eef3ff;
+  color: #5576c9;
+}
+
+.notification-icon {
+  background: #fff3e8;
+  color: #d97828;
+}
+
+.export-icon {
+  background: #edf9f1;
+  color: #31965b;
+}
+
+.sync-icon {
+  background: #eef3ff;
+  color: #5576c9;
+}
+
+
+/* =========================================
+   TEXT
+   ========================================= */
+
+.setting-content {
+  min-width: 0;
+  flex: 1;
+}
+
+.setting-content strong {
+  display: block;
+
+  margin-bottom: 3px;
+
+  overflow: hidden;
+
+  font-size: 14px;
+  line-height: 18px;
+
+  font-weight: 650;
+
+  color: #20242a;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.setting-content span {
+  display: block;
+
+  overflow: hidden;
+
+  font-size: 10px;
+  line-height: 15px;
+
+  color: #858c95;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+
+/* =========================================
+   TOGGLE
+   ========================================= */
+
+ion-toggle {
+  flex-shrink: 0;
+
+  --track-width: 42px;
+  --track-height: 25px;
+
+  --handle-width: 21px;
+  --handle-height: 21px;
+
+  --track-background: #dfe3e8;
+  --track-background-checked: #31965b;
+
+  --handle-background: #ffffff;
+  --handle-background-checked: #ffffff;
+}
+
+
+/* Fingerprint switch - fully-controlled native checkbox, sized to
+   match the other settings toggles. The invisible input sits on top of
+   the track and every tap calls preventDefault(), so the browser never
+   flips it - the checked state only ever follows fingerprintEnabled. */
+
+.fingerprint-switch {
+  position: relative;
+
+  width: 42px;
+  height: 25px;
+
+  flex-shrink: 0;
+}
+
+.fingerprint-switch input[type="checkbox"] {
+  position: absolute;
+  inset: 0;
+
+  margin: 0;
+  width: 100%;
+  height: 100%;
+
+  opacity: 0;
+  cursor: pointer;
+
+  z-index: 1;
+
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.fingerprint-switch-track {
+  position: absolute;
+  inset: 0;
+
+  border-radius: 999px;
+
+  background: #dfe3e8;
+
+  transition: background-color 0.2s ease;
+}
+
+.fingerprint-switch-thumb {
+  position: absolute;
+
+  top: 2px;
+  left: 2px;
+
+  width: 21px;
+  height: 21px;
+
+  border-radius: 50%;
+
+  background: #ffffff;
+
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+
+  transition: transform 0.2s ease;
+}
+
+.fingerprint-switch input:checked ~ .fingerprint-switch-track {
+  background: #31965b;
+}
+
+.fingerprint-switch
+  input:checked
+  ~ .fingerprint-switch-track
+  .fingerprint-switch-thumb {
+  transform: translateX(17px);
+}
+
+
+/* =========================================
+   ACTION ROW
+   ========================================= */
+
+.action-row {
+  cursor: pointer;
+
+  transition:
+    background 0.12s ease,
+    transform 0.08s ease;
+}
+
+.action-row:active {
+  background: #f5f6f7;
+
+  transform: scale(0.985);
+}
+
+
+/* =========================================
+   ARROW
+   ========================================= */
+
+.row-arrow {
+  flex-shrink: 0;
+
+  font-size: 17px;
+
+  color: #a0a6ae;
+}
+
+
+/* =========================================
+   VERSION
+   ========================================= */
+
+.version {
+  flex-shrink: 0;
+
+  font-size: 10px;
+
+  color: #9aa1aa;
+}
+
+
+/* =========================================
+   LOGOUT
+   ========================================= */
+
+.logout-button {
+  width: 100%;
+  height: 52px;
+
+  margin-top: 3px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  border: none;
+
+  border-radius: 16px;
+
+  background: #fff2f2;
+
+  color: #d45b5b;
+
+  font-family: inherit;
+
+  font-size: 14px;
+
+  font-weight: 650;
+
+  -webkit-tap-highlight-color: transparent;
+
+  transition:
+    background 0.12s ease,
+    transform 0.08s ease;
+}
+
+.logout-button ion-icon {
+  font-size: 19px;
+}
+
+.logout-button:active {
+  background: #ffe9e9;
+
+  transform: scale(0.98);
+}
+
+
+/* =========================================
+   FOOTER
+   ========================================= */
+
+.settings-footer {
+  margin-top: 18px;
+
+  text-align: center;
+
+  font-size: 10px;
+
+  color: #a5abb2;
+}
+
+
+/* =========================================
+   DARK MODE
+   ========================================= */
+
+:host-context(.dark) {
+
+  ion-content.settings-content {
+    --background: #111418;
+  }
+
+
+  /* Header */
+
+  .settings-header h1 {
+    color: #f4f5f6;
+  }
+
+  .settings-header p {
+    color: #858c95;
+  }
+
+
+  /* Groups */
+
+  .group-title {
+    color: #777f89;
+  }
+
+
+  /* Lists */
+
+  .settings-list {
+    background: #1a1e23;
+
+    border-color: #2d3239;
+  }
+
+
+  /* Rows */
+
+  .setting-row {
+    border-bottom-color: #2d3239;
+  }
+
+
+  /* Text */
+
+  .setting-content strong {
+    color: #f1f2f3;
+  }
+
+  .setting-content span {
+    color: #858c95;
+  }
+
+
+  /* Icons */
+
+  .appearance-icon {
+    background: rgba(255, 255, 255, 0.08);
+    color: #b3bac3;
+  }
+
+  .security-icon {
+    background: rgba(85, 118, 201, 0.14);
+  }
+
+  .notification-icon {
+    background: rgba(217, 120, 40, 0.14);
+  }
+
+  .export-icon {
+    background: rgba(49, 150, 91, 0.14);
+  }
+
+  .sync-icon {
+    background: rgba(85, 118, 201, 0.14);
+  }
+
+  /* Toggle */
+
+  ion-toggle {
+    --track-background: #3a4048;
+
+    --track-background-checked: #31965b;
+
+    --handle-background: #dce0e4;
+    --handle-background-checked: #ffffff;
+  }
+
+
+  /* Fingerprint switch */
+
+  .fingerprint-switch-track {
+    background: #3a4048;
+  }
+
+  .fingerprint-switch-thumb {
+    background: #dce0e4;
+
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  }
+
+  .fingerprint-switch input:checked ~ .fingerprint-switch-track {
+    background: #31965b;
+  }
+
+
+  /* Action */
+
+  .action-row:active {
+    background: #20252b;
+  }
+
+
+  /* Arrow */
+
+  .row-arrow {
+    color: #777f89;
+  }
+
+
+  /* Version */
+
+  .version {
+    color: #777f89;
+  }
+
+
+  /* Logout */
+
+  .logout-button {
+    background: rgba(212, 91, 91, 0.09);
+
+    color: #e27a7a;
+  }
+
+  .logout-button:active {
+    background: rgba(212, 91, 91, 0.16);
+  }
+
+
+  /* Footer */
+
+  .settings-footer {
+    color: #686f78;
+  }
+
+}
+
+
+/* =========================================
+   SMALL PHONES
+   ========================================= */
+
+@media (max-height: 680px) {
+
+  .settings-page {
+    padding-top: 20px;
+    padding-bottom: 90px;
+  }
+
+  .settings-header {
+    padding-bottom: 20px;
+  }
+
+  .settings-header h1 {
+    font-size: 27px;
+  }
+
+  .settings-group {
+    margin-bottom: 19px;
+  }
+
+  .setting-row {
+    min-height: 68px;
+
+    padding: 10px 12px;
+  }
+
+  .setting-icon {
+    width: 38px;
+    height: 38px;
+  }
+
+}
+
+/* =========================================
+   SYNC TOAST
+   ========================================= */
+
+ion-toast {
+  --border-radius: 14px;
+  --box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+
+  --min-width: calc(100% - 32px);
+  --max-width: calc(100% - 32px);
+
+  --padding-start: 16px;
+  --padding-end: 16px;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+
+/* =========================================
+   SUCCESS
+   ========================================= */
+
+ion-toast.sync-success {
+  --background: #31965b;
+  --color: #ffffff;
+}
+
+
+/* =========================================
+   ERROR
+   ========================================= */
+
+ion-toast.sync-error {
+  --background: #d45b5b;
+  --color: #ffffff;
+}
+
+
+/* =========================================
+   DARK MODE
+   ========================================= */
+
+:host-context(.dark) {
+
+  ion-toast.sync-success {
+    --background: #277d4b;
+    --color: #ffffff;
+  }
+
+  ion-toast.sync-error {
+    --background: #b94b4b;
+    --color: #ffffff;
+  }
+
+}
