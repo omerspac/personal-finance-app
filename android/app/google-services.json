@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "735980567798",
+    "project_id": "personal-finance-app-c5e44",
+    "storage_bucket": "personal-finance-app-c5e44.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:735980567798:android:dfa143200f8f33218a40d7",
+        "android_client_info": {
+          "package_name": "com.omfin.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "735980567798-hff6pro7caceofs3mocfufr1qq955j36.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDr3MjCexnLR1hxC5-CZS9JrFCldOUihIU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "735980567798-hff6pro7caceofs3mocfufr1qq955j36.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

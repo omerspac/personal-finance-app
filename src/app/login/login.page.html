@@ -1,4 +1,6 @@
-<div class="login-page">
+<ion-content class="login-content">
+
+  <div class="login-page">
 
     <!-- Theme Toggle -->
     <div style="display: flex; justify-content: flex-end; padding: 8px 0;">
@@ -178,6 +180,27 @@
 
       </form>
 
+      <!-- OR Divider -->
+      <div class="or-divider">
+        <span>OR</span>
+      </div>
+
+
+      <!-- Continue with Google -->
+      <ion-button
+        expand="block"
+        fill="outline"
+        class="google-button"
+        type="button"
+        [disabled]="isLoading || isGoogleLoading"
+        (click)="continueWithGoogle()">
+
+        <ion-icon slot="start" name="logo-google"></ion-icon>
+
+        {{ isGoogleLoading ? 'Signing in...' : 'Continue with Google' }}
+
+      </ion-button>
+
     </div>
 
 
@@ -266,6 +289,16 @@
 
     <!-- Bottom Text -->
     <div class="bottom-section">
+      <p class="create-account-row">
+        Don't have an account?
+        <button
+          class="create-account-link"
+          type="button"
+          (click)="goToRegister()">
+          Create one
+        </button>
+      </p>
+
       <p>
         Your finances. Your control.
       </p>
@@ -326,3 +359,5 @@
     </ion-toast>
 
   </div>
+
+</ion-content>

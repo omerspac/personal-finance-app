@@ -9,7 +9,8 @@ import {
   IonButton,
   IonIcon,
   IonItem,
-  IonToast
+  IonToast,
+  IonContent
 } from '@ionic/angular/standalone';
 
 import { addIcons } from 'ionicons';
@@ -23,7 +24,8 @@ import {
   scanOutline,
   arrowBackOutline,
   moonOutline,
-  sunnyOutline
+  sunnyOutline,
+  logoGoogle
 } from 'ionicons/icons';
 
 import { AuthService } from '../services/auth.service';
@@ -46,6 +48,7 @@ const BIOMETRIC_MODE_KEY = 'omfin_biometric_mode';
     IonIcon,
     IonItem,
     IonToast,
+    IonContent,
     CommonModule,
     FormsModule
   ]
@@ -67,7 +70,9 @@ export class LoginPage implements OnInit, OnDestroy {
   password = '';
   showPassword = false;
 
-  isLoading = false;
+isLoading = false;
+
+  isGoogleLoading = false;
 
 
   // =========================================
@@ -149,7 +154,8 @@ export class LoginPage implements OnInit, OnDestroy {
       scanOutline,
       arrowBackOutline,
       moonOutline,
-      sunnyOutline
+      sunnyOutline,
+      logoGoogle
     });
 
     this.isDarkMode = this.themeService.getIsDarkMode();
@@ -335,6 +341,74 @@ export class LoginPage implements OnInit, OnDestroy {
       this.isLoading = false;
 
     }
+
+  }
+
+
+  // =========================================
+  // GOOGLE SIGN-IN
+  // =========================================
+
+  async continueWithGoogle(): Promise<void> {
+
+    if (this.isLoading || this.isGoogleLoading) {
+      return;
+    }
+
+    this.isGoogleLoading = true;
+
+    try {
+
+      await this.authService.signInWithGoogle();
+
+      // If biometric login is enabled, refresh the stored Google ID token
+      // so a later logout still offers the fingerprint/face prompt with a
+      // token that has not expired.
+      await this.biometricLockService.saveLoginForCurrentUser();
+
+      await this.router.navigateByUrl(
+        '/home',
+        {
+          replaceUrl: true
+        }
+      );
+
+    } catch (error) {
+
+      console.error(
+        'Google sign-in failed:',
+        error
+      );
+
+      this.showLoginError(
+        this.authService.getErrorMessage(error)
+      );
+
+    } finally {
+
+      this.isGoogleLoading = false;
+
+    }
+
+  }
+
+
+  // =========================================
+  // GO TO REGISTER
+  // =========================================
+
+  async goToRegister(): Promise<void> {
+
+    if (this.isLoading || this.isGoogleLoading) {
+      return;
+    }
+
+    await this.router.navigateByUrl(
+      '/register',
+      {
+        replaceUrl: true
+      }
+    );
 
   }
 

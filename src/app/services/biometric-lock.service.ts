@@ -6,9 +6,11 @@ import { BiometryType, NativeBiometric } from 'capacitor-native-biometric';
 import { Router } from '@angular/router';
 
 import { AuthService } from './auth.service';
+import { DatabaseService } from './database.service';
 
 const BIOMETRIC_ENABLED_KEY = 'omfin_biometric_enabled';
 const BIOMETRIC_LOGIN_READY_KEY = 'omfin_biometric_login_ready';
+const BIOMETRIC_CREDENTIAL_KIND_KEY = 'omfin_biometric_cred_kind';
 const BIOMETRIC_CREDENTIAL_SERVER = 'omfin.app.login';
 const MAX_FAILED_ATTEMPTS = 5;
 
@@ -26,7 +28,8 @@ export class BiometricLockService {
 
   constructor(
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private databaseService: DatabaseService
   ) { }
 
   // =========================================================
@@ -129,6 +132,81 @@ export class BiometricLockService {
       value: 'true'
     });
 
+    await Preferences.set({
+      key: BIOMETRIC_CREDENTIAL_KIND_KEY,
+      value: 'password'
+    });
+
+  }
+
+  // Google accounts have no password to store in the native keystore, so
+  // the Google ID token (from the Firebase JS SDK user) is stored in its
+  // place and tagged as a 'google' credential. loginWithBiometrics() then
+  // knows to restore the JS session via signInWithCredential() instead of
+  // signInWithEmailAndPassword(). This is what lets a Google user get the
+  // fingerprint/face prompt after logging out.
+  async saveGoogleLoginCredentials(email: string, idToken: string): Promise<void> {
+
+    if (!await this.isEnabled()) {
+      return;
+    }
+
+    await NativeBiometric.setCredentials({
+      username: email,
+      password: idToken,
+      server: BIOMETRIC_CREDENTIAL_SERVER
+    });
+
+    await Preferences.set({
+      key: BIOMETRIC_LOGIN_READY_KEY,
+      value: 'true'
+    });
+
+    await Preferences.set({
+      key: BIOMETRIC_CREDENTIAL_KIND_KEY,
+      value: 'google'
+    });
+
+  }
+
+  // Saves the biometric login credential for the currently signed-in
+  // user. Email/password accounts save their password; Google accounts
+  // save the raw Google OAuth ID token captured at sign-in (NOT a Firebase
+  // ID token - GoogleAuthProvider.credential() rejects those). Called from
+  // Settings right after the user enables fingerprint/face lock, and from
+  // the login/register pages after a successful sign-in.
+  async saveLoginForCurrentUser(): Promise<void> {
+
+    const user = this.authService.currentUser;
+
+    if (!user?.email) {
+      return;
+    }
+
+    const isGoogleAccount = (user.providerData ?? []).some(
+      (provider) => provider.providerId === 'google.com'
+    );
+
+    if (isGoogleAccount) {
+
+      const googleIdToken = await this.authService.getStoredGoogleIdToken();
+
+      if (googleIdToken) {
+
+        await this.saveGoogleLoginCredentials(
+          user.email,
+          googleIdToken
+        );
+
+      }
+
+    } else {
+
+      // Email/password credentials are saved by the login page with the
+      // plaintext password, so there is nothing to do here.
+
+    }
+
   }
 
   async clearSavedLogin(): Promise<void> {
@@ -139,6 +217,7 @@ export class BiometricLockService {
       });
     } finally {
       await Preferences.remove({ key: BIOMETRIC_LOGIN_READY_KEY });
+      await Preferences.remove({ key: BIOMETRIC_CREDENTIAL_KIND_KEY });
     }
 
   }
@@ -157,7 +236,19 @@ export class BiometricLockService {
       server: BIOMETRIC_CREDENTIAL_SERVER
     });
 
-    await this.authService.login(credentials.username, credentials.password);
+    const kind = (await Preferences.get({
+      key: BIOMETRIC_CREDENTIAL_KIND_KEY
+    })).value;
+
+    if (kind === 'google') {
+
+      await this.authService.loginWithGoogleIdToken(credentials.password);
+
+    } else {
+
+      await this.authService.login(credentials.username, credentials.password);
+
+    }
 
   }
 
@@ -299,6 +390,8 @@ export class BiometricLockService {
     try {
 
       await this.authService.logout();
+
+      await this.databaseService.closeDatabase();
 
     } catch (error) {
 

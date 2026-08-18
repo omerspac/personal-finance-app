@@ -1,0 +1,125 @@
+<ion-content class="verify-email-content">
+
+  <div class="verify-email-page">
+
+    <!-- Theme Toggle -->
+    <div style="display: flex; justify-content: flex-end; padding: 8px 0;">
+
+      <ion-button
+        fill="clear"
+        style="--padding-start: 0; --padding-end: 0; width: 44px; height: 44px; --color: var(--app-text-secondary, #666);"
+        type="button"
+        (click)="toggleTheme()">
+
+        <ion-icon
+          [name]="isDarkMode ? 'moon-outline' : 'sunny-outline'"
+          style="font-size: 22px;">
+        </ion-icon>
+
+      </ion-button>
+
+    </div>
+
+
+    <!-- Top Branding -->
+    <div class="brand-section">
+
+      <div class="logo">
+        <img src="/assets/icon/OmFin-logo.png" alt="OmFin">
+      </div>
+
+      <h1>Verify your email</h1>
+      <p>Confirm your email address to get started.</p>
+
+    </div>
+
+
+    <!-- =========================================
+         VERIFY EMAIL BODY
+         ========================================= -->
+
+    <div class="verify-section">
+
+      <div class="mail-icon">
+        <ion-icon name="mail-outline"></ion-icon>
+      </div>
+
+      <p class="verify-message">
+        We've sent a verification link to
+        <strong>{{ email }}</strong>.
+      </p>
+
+      <p class="verify-hint">
+        Click the link in the email to confirm this address belongs to
+        you. You'll be taken to your dashboard automatically once your
+        email is verified.
+      </p>
+
+
+      <!-- Resend -->
+      <ion-button
+        expand="block"
+        fill="outline"
+        class="resend-button"
+        type="button"
+        [disabled]="isResending || isChecking || resendCooldown > 0"
+        (click)="resendEmail()">
+
+        <ion-icon slot="start" name="refresh-outline"></ion-icon>
+
+        {{ isResending
+              ? 'Sending...'
+              : (resendCooldown > 0
+                  ? 'Resend email (' + resendCooldown + 's)'
+                  : 'Resend email') }}
+
+      </ion-button>
+
+
+      <!-- I've verified — Continue -->
+      <ion-button
+        expand="block"
+        class="check-button"
+        type="button"
+        [disabled]="isChecking || isResending"
+        (click)="checkNow(false)">
+
+        {{ isChecking ? 'Checking...' : "I've verified — Continue" }}
+
+      </ion-button>
+
+    </div>
+
+
+    <!-- Bottom Link -->
+    <div class="bottom-section">
+
+      <p>
+        Not your email?
+        <button
+          class="logout-link"
+          type="button"
+          (click)="useDifferentAccount()">
+          Use a different account
+        </button>
+      </p>
+
+    </div>
+
+
+    <!-- =========================================
+         VERIFY EMAIL TOAST
+         ========================================= -->
+
+    <ion-toast
+      [isOpen]="isToastOpen"
+      [message]="toastMessage"
+      [duration]="3000"
+      position="bottom"
+      cssClass="verify-email-error-toast"
+      (didDismiss)="isToastOpen = false">
+    </ion-toast>
+
+  </div>
+
+</ion-content>

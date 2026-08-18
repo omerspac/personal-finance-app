@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { authGuard, guestGuard } from './guards/auth.guard';
+import { authGuard, guestGuard, registerGuard, verifyEmailGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
 
@@ -116,16 +116,44 @@ export const routes: Routes = [
 
 
   // =========================================
-  // UNKNOWN ROUTES
+  // CONNECTION LOST
+  // =========================================
+
+  {
+    path: 'connection-lost',
+    loadComponent: () => import('./components/connection-lost/connection-lost.page').then( m => m.ConnectionLostPage)
+  },
+
+
+  // =========================================
+  // REGISTER (FIRST LAUNCH ONLY)
+  // =========================================
+
+  {
+    path: 'register',
+    canActivate: [registerGuard],
+    loadComponent: () => import('./register/register.page').then( m => m.RegisterPage)
+  },
+
+
+  // =========================================
+  // EMAIL VERIFICATION
+  // =========================================
+
+  {
+    path: 'verify-email',
+    canActivate: [verifyEmailGuard],
+    loadComponent: () => import('./verify-email/verify-email.page').then( m => m.VerifyEmailPage)
+  },
+
+
+  // =========================================
+  // UNKNOWN ROUTES (MUST BE LAST)
   // =========================================
 
   {
     path: '**',
     redirectTo: 'login'
-  },
-  {
-    path: 'connection-lost',
-    loadComponent: () => import('./components/connection-lost/connection-lost.page').then( m => m.ConnectionLostPage)
   }
 
 ];

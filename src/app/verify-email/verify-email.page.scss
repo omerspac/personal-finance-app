@@ -1,0 +1,319 @@
+/* =========================================
+   VERIFY EMAIL PAGE
+   Mobile-first finance app UI
+   Matches the Register/Login page design.
+   ========================================= */
+
+ion-content.verify-email-content {
+  --background: var(--app-background, #f8f9fb);
+}
+
+
+.verify-email-page {
+  min-height: 100%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  padding:
+    calc(env(safe-area-inset-top) + 28px)
+    20px
+    calc(env(safe-area-inset-bottom) + 24px);
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================
+   BRANDING
+   ========================================= */
+
+.brand-section {
+  text-align: center;
+
+  padding-top: 16px;
+  margin-bottom: 32px;
+}
+
+.logo {
+  width: 64px;
+  height: 64px;
+
+  margin: 0 auto 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 18px;
+
+  background: #20252d;
+  color: #ffffff;
+
+  font-size: 30px;
+  font-weight: 700;
+
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.logo img {
+  width: 40px;
+  height: 40px;
+
+  object-fit: contain;
+}
+
+.brand-section h1 {
+  margin: 0;
+
+  font-size: 28px;
+  line-height: 1.15;
+
+  font-weight: 750;
+  letter-spacing: -0.6px;
+
+  color: #171a1f;
+}
+
+.brand-section p {
+  margin: 8px 0 0;
+
+  font-size: 14px;
+  line-height: 20px;
+
+  color: #747b85;
+}
+
+
+/* =========================================
+   VERIFY SECTION
+   ========================================= */
+
+.verify-section {
+  width: 100%;
+}
+
+.mail-icon {
+  width: 72px;
+  height: 72px;
+
+  margin: 0 auto 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 22px;
+
+  background: #20252d;
+  color: #ffffff;
+}
+
+.mail-icon ion-icon {
+  font-size: 34px;
+}
+
+.verify-message {
+  margin: 0 0 10px;
+
+  text-align: center;
+
+  font-size: 15px;
+  line-height: 22px;
+
+  color: #171a1f;
+}
+
+.verify-message strong {
+  font-weight: 700;
+
+  word-break: break-all;
+}
+
+.verify-hint {
+  margin: 0 0 28px;
+
+  text-align: center;
+
+  font-size: 13px;
+  line-height: 19px;
+
+  color: #747b85;
+}
+
+
+/* =========================================
+   BUTTONS
+   ========================================= */
+
+.resend-button {
+  --border-color: #20252d;
+  --color: #20252d;
+
+  --border-radius: 14px;
+  --border-width: 1.5px;
+  --border-style: solid;
+
+  height: 54px;
+
+  margin: 0 0 14px;
+
+  font-size: 15px;
+  font-weight: 650;
+
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.resend-button ion-icon {
+  font-size: 19px;
+}
+
+.check-button {
+  --background: #20252d;
+  --background-activated: #11151a;
+  --background-hover: #20252d;
+
+  --border-radius: 14px;
+
+  --box-shadow: none;
+
+  height: 54px;
+
+  margin: 0;
+
+  font-size: 15px;
+  font-weight: 650;
+
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+
+/* =========================================
+   BOTTOM
+   ========================================= */
+
+.bottom-section {
+  margin-top: auto;
+
+  padding-top: 40px;
+
+  text-align: center;
+}
+
+.bottom-section p {
+  margin: 0;
+
+  font-size: 13px;
+
+  color: #9aa0a8;
+}
+
+.logout-link {
+  border: none;
+  background: transparent;
+
+  padding: 0 0 0 2px;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 650;
+
+  color: #20252d;
+
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+/* =========================================
+   DARK MODE
+   ========================================= */
+
+:host-context(.dark) {
+
+  .brand-section h1 {
+    color: #f5f6f7;
+  }
+
+  .brand-section p {
+    color: #949ba4;
+  }
+
+  .logo,
+  .mail-icon {
+    background: #f1f2f3;
+    color: #171a1f;
+  }
+
+  .verify-message {
+    color: #f5f6f7;
+  }
+
+  .verify-hint {
+    color: #949ba4;
+  }
+
+  .resend-button {
+    --border-color: #e5e7eb;
+    --color: #e5e7eb;
+  }
+
+  .check-button {
+    --background: #f1f2f3;
+    --background-activated: #ffffff;
+
+    --color: #171a1f;
+  }
+
+  .bottom-section p {
+    color: #6f767f;
+  }
+
+  .logout-link {
+    color: #e5e7eb;
+  }
+}
+
+
+/* =========================================
+   VERIFY EMAIL TOAST
+   ========================================= */
+
+ion-toast.verify-email-error-toast {
+  --background: #d45b5b;
+  --color: #ffffff;
+
+  --border-radius: 14px;
+
+  --min-width: calc(100% - 32px);
+  --max-width: calc(100% - 32px);
+
+  --padding-start: 16px;
+  --padding-end: 16px;
+
+  --box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.16);
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+
+/* =========================================
+   DARK MODE - TOAST
+   ========================================= */
+
+:host-context(.dark) {
+
+  ion-toast.verify-email-error-toast {
+    --background: #b94b4b;
+    --color: #ffffff;
+
+    --box-shadow:
+      0 8px 24px rgba(0, 0, 0, 0.35);
+  }
+
+}

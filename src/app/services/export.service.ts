@@ -90,10 +90,15 @@ export class ExportService {
     fileName: string
   ): Promise<void> {
 
+    // The CSV is written to the app-private cache directory. Unlike the
+    // public Documents directory, this is always writable on every
+    // Android version (no storage permission, no scoped-storage
+    // restrictions) and the path is covered by the app's FileProvider
+    // `cache-path` entry, so the Share sheet can open the file reliably.
     const writeResult = await Filesystem.writeFile({
       path: fileName,
       data: csv,
-      directory: Directory.Documents,
+      directory: Directory.Cache,
       encoding: Encoding.UTF8
     });
 

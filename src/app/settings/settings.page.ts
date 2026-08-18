@@ -251,6 +251,11 @@ isDarkMode = false;
 
         await this.biometricLockService.setEnabled(true);
 
+        // Store the current user's login credential (email/password or
+        // Google ID token) so the login page can offer the fingerprint/
+        // face prompt after a later logout.
+        await this.biometricLockService.saveLoginForCurrentUser();
+
         await Preferences.set({
           key: BIOMETRIC_MODE_KEY,
           value: 'fingerprint'
@@ -362,6 +367,10 @@ isDarkMode = false;
         }
 
         await this.biometricLockService.setEnabled(true);
+
+        // Same as fingerprint: persist the login credential so the login
+        // page can offer the biometric prompt after a later logout.
+        await this.biometricLockService.saveLoginForCurrentUser();
 
       } else {
 
@@ -541,6 +550,19 @@ isDarkMode = false;
       console.error('Failed to log out:', error);
 
     } finally {
+
+      try {
+
+        // Close the current user's database so the next login opens a
+        // fresh, user-scoped database and never shows the previous
+        // account's local transactions.
+        await this.databaseService.closeDatabase();
+
+      } catch (closeError) {
+
+        console.warn('Failed to close database on logout:', closeError);
+
+      }
 
       this.router.navigateByUrl('/login', { replaceUrl: true });
 

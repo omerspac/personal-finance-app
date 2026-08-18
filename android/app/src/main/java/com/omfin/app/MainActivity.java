@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package com.omfin.app;
 
 import com.getcapacitor.BridgeActivity;
 

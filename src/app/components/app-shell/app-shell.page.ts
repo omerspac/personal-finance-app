@@ -22,6 +22,7 @@ import {
 
 import { ThemeService } from 'src/app/services/theme.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { DatabaseService } from 'src/app/services/database.service';
 import { Subscription } from 'rxjs';
 
 
@@ -50,7 +51,8 @@ export class AppShellPage implements OnDestroy {
   constructor(
     private router: Router,
     private themeService: ThemeService,
-    private authService: AuthService
+    private authService: AuthService,
+    private databaseService: DatabaseService
   ) {
 
     this.isDarkMode =
@@ -141,6 +143,19 @@ export class AppShellPage implements OnDestroy {
       console.error('Failed to log out:', error);
 
     } finally {
+
+      try {
+
+        // Close the current user's database so the next login opens a
+        // fresh, user-scoped database and never shows the previous
+        // account's local transactions.
+        await this.databaseService.closeDatabase();
+
+      } catch (error) {
+
+        console.warn('Failed to close database on logout:', error);
+
+      }
 
       this.router.navigateByUrl('/login', { replaceUrl: true });
 

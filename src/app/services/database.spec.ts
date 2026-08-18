@@ -1,13 +1,28 @@
 import { TestBed } from '@angular/core/testing';
 
-import { Database } from './database.service';
+import { Auth } from '@angular/fire/auth';
 
-describe('Database', () => {
-  let service: Database;
+import { DatabaseService } from './database.service';
+
+describe('DatabaseService', () => {
+  let service: DatabaseService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(Database);
+    TestBed.configureTestingModule({
+      providers: [
+        DatabaseService,
+        {
+          provide: Auth,
+          useValue: {
+            onAuthStateChanged: (callback: any) => {
+              callback(null);
+              return () => {};
+            }
+          }
+        }
+      ]
+    });
+    service = TestBed.inject(DatabaseService);
   });
 
   it('should be created', () => {

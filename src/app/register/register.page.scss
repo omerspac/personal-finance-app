@@ -1,0 +1,461 @@
+/* =========================================
+   REGISTER PAGE
+   Mobile-first finance app UI
+   Matches the existing Login page design.
+   ========================================= */
+
+.register-page {
+  min-height: 100%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  padding:
+    calc(env(safe-area-inset-top) + 28px)
+    20px
+    calc(env(safe-area-inset-bottom) + 24px);
+
+  box-sizing: border-box;
+
+  background: var(--app-background, #f8f9fb);
+}
+
+
+/* =========================================
+   BRANDING
+   ========================================= */
+
+.brand-section {
+  text-align: center;
+
+  padding-top: 16px;
+  margin-bottom: 36px;
+}
+
+.logo {
+  width: 64px;
+  height: 64px;
+
+  margin: 0 auto 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 18px;
+
+  background: #20252d;
+  color: #ffffff;
+
+  font-size: 30px;
+  font-weight: 700;
+
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.logo img {
+  width: 40px;
+  height: 40px;
+
+  object-fit: contain;
+}
+
+.brand-section h1 {
+  margin: 0;
+
+  font-size: 30px;
+  line-height: 1.15;
+
+  font-weight: 750;
+  letter-spacing: -0.6px;
+
+  color: #171a1f;
+}
+
+.brand-section p {
+  margin: 8px 0 0;
+
+  font-size: 14px;
+  line-height: 20px;
+
+  color: #747b85;
+}
+
+
+/* =========================================
+   REGISTER SECTION
+   ========================================= */
+
+.register-section {
+  width: 100%;
+}
+
+
+/* =========================================
+   INPUTS
+   ========================================= */
+
+.input-group {
+  margin-bottom: 18px;
+}
+
+.input-group ion-label {
+  display: block;
+
+  margin: 0 0 8px 4px;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  color: #4d5560;
+}
+
+.input-item {
+  --background: #ffffff;
+
+  --border-radius: 14px;
+
+  --padding-start: 14px;
+  --inner-padding-end: 8px;
+
+  --min-height: 54px;
+
+  border: 1px solid #e3e6ea;
+  border-radius: 14px;
+
+  box-shadow: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.input-item:focus-within {
+  border-color: #20252d;
+
+  box-shadow:
+    0 0 0 3px rgba(32, 37, 45, 0.07);
+}
+
+.input-item > ion-icon {
+  margin-right: 10px;
+
+  font-size: 20px;
+
+  color: #8b929b;
+}
+
+.input-item ion-input {
+  --padding-start: 0;
+  --padding-end: 0;
+
+  font-size: 15px;
+
+  color: #171a1f;
+}
+
+.input-item ion-input::part(native) {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+
+/* =========================================
+   PASSWORD BUTTON
+   ========================================= */
+
+.password-toggle {
+  --padding-start: 8px;
+  --padding-end: 8px;
+
+  --color: #858c95;
+
+  margin: 0;
+
+  height: 42px;
+  min-width: 42px;
+}
+
+.password-toggle ion-icon {
+  font-size: 20px;
+}
+
+
+/* =========================================
+   REGISTER BUTTON
+   ========================================= */
+
+.register-button {
+  --background: #20252d;
+  --background-activated: #11151a;
+  --background-hover: #20252d;
+
+  --border-radius: 14px;
+
+  --box-shadow: none;
+
+  height: 54px;
+
+  margin: 4px 0 0;
+
+  font-size: 15px;
+  font-weight: 650;
+
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+
+/* =========================================
+   OR DIVIDER
+   ========================================= */
+
+.or-divider {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  margin: 22px 0;
+
+  color: #9aa0a8;
+}
+
+.or-divider::before,
+.or-divider::after {
+  content: "";
+
+  flex: 1;
+
+  height: 1px;
+
+  background: #e3e6ea;
+}
+
+.or-divider span {
+  font-size: 12px;
+  font-weight: 600;
+
+  letter-spacing: 0.4px;
+}
+
+
+/* =========================================
+   GOOGLE BUTTON
+   ========================================= */
+
+.google-button {
+  --border-color: #20252d;
+  --color: #20252d;
+
+  --border-radius: 14px;
+  --border-width: 1.5px;
+  --border-style: solid;
+
+  height: 54px;
+
+  margin: 0;
+
+  font-size: 15px;
+  font-weight: 650;
+
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.google-button ion-icon {
+  font-size: 19px;
+}
+
+
+/* =========================================
+   BOTTOM
+   ========================================= */
+
+.bottom-section {
+  margin-top: auto;
+
+  padding-top: 10px;
+
+  text-align: center;
+}
+
+.bottom-section p {
+  margin: 0;
+
+  font-size: 13px;
+
+  color: #9aa0a8;
+}
+
+.login-link {
+  border: none;
+  background: transparent;
+
+  padding: 0 0 0 2px;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 650;
+
+  color: #20252d;
+
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+/* =========================================
+   DARK MODE
+   ========================================= */
+
+:host-context(.dark) {
+
+  .brand-section h1 {
+    color: #f5f6f7;
+  }
+
+  .brand-section p {
+    color: #949ba4;
+  }
+
+  .logo {
+    background: #f1f2f3;
+    color: #171a1f;
+  }
+
+  .input-group ion-label {
+    color: #b8bec6;
+  }
+
+  .input-item {
+    --background: #1a1e23;
+
+    border-color: #30353c;
+  }
+
+  .input-item:focus-within {
+    border-color: #b8bec6;
+
+    box-shadow:
+      0 0 0 3px rgba(184, 190, 198, 0.08);
+  }
+
+  .input-item > ion-icon {
+    color: #858c95;
+  }
+
+  .input-item ion-input {
+    color: #f5f6f7;
+  }
+
+  .password-toggle {
+    --color: #b3bac3;
+  }
+
+  .register-button {
+    --background: #f1f2f3;
+    --background-activated: #ffffff;
+
+    --color: #171a1f;
+  }
+
+  .or-divider {
+    color: #6f767f;
+  }
+
+  .or-divider::before,
+  .or-divider::after {
+    background: #30353c;
+  }
+
+  .google-button {
+    --border-color: #e5e7eb;
+    --color: #e5e7eb;
+  }
+
+  .bottom-section p {
+    color: #6f767f;
+  }
+
+  .login-link {
+    color: #e5e7eb;
+  }
+}
+
+
+/* =========================================
+   SMALL PHONES
+   ========================================= */
+
+@media (max-height: 680px) {
+
+  .brand-section {
+    padding-top: 4px;
+    margin-bottom: 28px;
+  }
+
+  .logo {
+    width: 56px;
+    height: 56px;
+
+    margin-bottom: 12px;
+
+    font-size: 26px;
+  }
+
+  .logo img {
+    width: 36px;
+    height: 36px;
+  }
+
+  .brand-section h1 {
+    font-size: 27px;
+  }
+
+  .bottom-section {
+    padding-top: 24px;
+  }
+}
+
+
+/* =========================================
+   REGISTER ERROR TOAST
+   ========================================= */
+
+ion-toast.register-error-toast {
+  --background: #d45b5b;
+  --color: #ffffff;
+
+  --border-radius: 14px;
+
+  --min-width: calc(100% - 32px);
+  --max-width: calc(100% - 32px);
+
+  --padding-start: 16px;
+  --padding-end: 16px;
+
+  --box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.16);
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+
+/* =========================================
+   DARK MODE - TOAST
+   ========================================= */
+
+:host-context(.dark) {
+
+  ion-toast.register-error-toast {
+    --background: #b94b4b;
+    --color: #ffffff;
+
+    --box-shadow:
+      0 8px 24px rgba(0, 0, 0, 0.35);
+  }
+
+}

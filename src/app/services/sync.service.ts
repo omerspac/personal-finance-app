@@ -39,11 +39,16 @@ export class SyncService {
 
     }
 
+    // Cloud storage is already scoped to the authenticated user's own
+    // Firestore sub-collection, so the PUSH below can only ever write
+    // into the current user's folder.
     const transactionsRef = collection(
       this.firestore,
       `users/${user.uid}/transactions`
     );
 
+    // Local data is scoped per user as well (see DatabaseService), so the
+    // transactions read here belong to the currently signed-in user only.
     const localTransactions =
       await this.databaseService.getTransactions();
 
@@ -57,9 +62,14 @@ export class SyncService {
         continue;
       }
 
+      // Every cloud document is stamped with the owner's uid so a PULL
+      // can verify ownership and never import another account's rows.
       await setDoc(
         doc(transactionsRef, String(transaction.id)),
-        transaction
+        {
+          ...transaction,
+          uid: user.uid
+        }
       );
 
     }
@@ -78,14 +88,27 @@ export class SyncService {
 
     for (const docSnap of snapshot.docs) {
 
+      const data = docSnap.data();
+
+      // Isolation guard: only import documents that are explicitly owned
+      // by the current user. Documents without a uid field (written by
+      // the pre-fix version, when the PUSH step could copy another
+      // user's local data into this folder) are never imported, so a
+      // user can never read or display another user's transactions.
+      const documentUid = data?.['uid'] as string | undefined;
+
+      if (documentUid !== user.uid) {
+        continue;
+      }
+
       const remoteId = Number(docSnap.id);
 
       if (!localIds.has(remoteId)) {
 
-        const data = docSnap.data() as Transaction;
+        const transactionData = data as Transaction;
 
         await this.databaseService.insertTransactionWithId({
-          ...data,
+          ...transactionData,
           id: remoteId
         });
 

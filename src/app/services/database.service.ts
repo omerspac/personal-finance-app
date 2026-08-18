@@ -8,6 +8,12 @@ import {
 
 import { Capacitor } from '@capacitor/core';
 
+import { Preferences } from '@capacitor/preferences';
+
+import { firstValueFrom } from 'rxjs';
+
+import { AuthService } from './auth.service';
+
 import {
   Transaction
 } from '../models/transaction.model';
@@ -15,6 +21,12 @@ import {
 import {
   Reminder
 } from '../models/reminder.model';
+
+// Marks whether the pre-isolation `omfin` database has already been
+// migrated into a per-user database. The migration is one-time only: the
+// legacy data goes to whichever user signs in first after the upgrade,
+// and is never copied again (so it can never leak to a second account).
+const LEGACY_MIGRATED_KEY = 'omfin_legacy_migrated';
 
 @Injectable({
   providedIn: 'root'
@@ -27,12 +39,44 @@ export class DatabaseService {
 
   private initializationPromise?: Promise<void>;
 
-  private readonly databaseName = 'omfin';
+  private pendingUid?: string;
 
-  constructor() {
+  private currentUid?: string;
+
+  private currentDatabaseName?: string;
+
+  private readonly legacyDatabaseName = 'omfin';
+
+  constructor(
+    private authService: AuthService
+  ) {
     this.sqlite = new SQLiteConnection(
       CapacitorSQLite
     );
+  }
+
+  // =========================================================
+  // USER-SCOPED DATABASE NAME
+  // =========================================================
+  //
+  // Every authenticated user gets their own SQLite database so that
+  // local data is completely isolated. Logging out and logging into a
+  // different account must never expose the previous user's rows.
+
+  private getDatabaseNameForUser(uid: string): string {
+
+    return `omfin_${uid.replace(/[^A-Za-z0-9_-]/g, '_')}`;
+
+  }
+
+  private async getCurrentUserUid(): Promise<string | null> {
+
+    const user = await firstValueFrom(
+      this.authService.user$
+    );
+
+    return user?.uid ?? null;
+
   }
 
   // =========================================================
@@ -60,19 +104,50 @@ export class DatabaseService {
   // =========================================================
   // DATABASE INITIALIZATION
   // =========================================================
+  //
+  // Initializes the SQLite connection for the CURRENTLY authenticated
+  // user. If the signed-in user changed since the last initialization
+  // the previous connection is closed first so no cross-user data can
+  // ever be read.
 
   async initializeDatabase(): Promise<void> {
 
-    if (this.db) {
+    const uid = await this.getCurrentUserUid();
+
+    if (!uid) {
+
+      // Not logged in: there is no per-user database to open. Close any
+      // stale connection so the next login always starts clean.
+      await this.closeDatabase();
+
       return;
+
     }
 
-    if (this.initializationPromise) {
-      return this.initializationPromise;
+    const databaseName = this.getDatabaseNameForUser(uid);
+
+    if (this.db && this.currentUid === uid) {
+
+      // Already initialized for this user.
+      return;
+
     }
+
+    if (this.initializationPromise && this.pendingUid === uid) {
+
+      // A concurrent call is already initializing for the same user.
+      return this.initializationPromise;
+
+    }
+
+    await this.closeDatabase();
+
+    this.currentUid = uid;
+
+    this.pendingUid = uid;
 
     this.initializationPromise =
-      this.initializeDatabaseInternal();
+      this.initializeDatabaseInternal(databaseName);
 
     try {
 
@@ -82,10 +157,15 @@ export class DatabaseService {
 
       this.initializationPromise = undefined;
 
+      this.pendingUid = undefined;
+
     }
+
   }
 
-  private async initializeDatabaseInternal(): Promise<void> {
+  private async initializeDatabaseInternal(
+    databaseName: string
+  ): Promise<void> {
 
     try {
 
@@ -100,7 +180,7 @@ export class DatabaseService {
 
       const isConnection =
         await this.sqlite.isConnection(
-          this.databaseName,
+          databaseName,
           false
         );
 
@@ -111,7 +191,7 @@ export class DatabaseService {
 
         this.db =
           await this.sqlite.retrieveConnection(
-            this.databaseName,
+            databaseName,
             false
           );
 
@@ -119,7 +199,7 @@ export class DatabaseService {
 
         this.db =
           await this.sqlite.createConnection(
-            this.databaseName,
+            databaseName,
             false,
             'no-encryption',
             1,
@@ -128,14 +208,18 @@ export class DatabaseService {
 
       }
 
+      this.currentDatabaseName = databaseName;
+
       const db = this.getDatabase();
 
       await db.open();
 
       await this.createTables();
 
+      await this.migrateLegacyDatabaseIfNeeded();
+
       console.log(
-        'OmFin SQLite initialized successfully'
+        `OmFin SQLite initialized successfully (${databaseName})`
       );
 
     } catch (error) {
@@ -148,6 +232,207 @@ export class DatabaseService {
       throw error;
 
     }
+  }
+
+  // =========================================================
+  // LEGACY DATA MIGRATION (one-time)
+  // =========================================================
+  //
+  // Before per-user isolation the app stored everything in a single
+  // `omfin` database. On the first login after the upgrade that data is
+  // copied into the signed-in user's database so existing transactions
+  // are preserved (never deleted) and remain visible to the account that
+  // owns this device. The migration runs exactly once and never again,
+  // so legacy rows can never be exposed to a second account.
+
+  private async migrateLegacyDatabaseIfNeeded(): Promise<void> {
+
+    const migrated =
+      await Preferences.get({ key: LEGACY_MIGRATED_KEY });
+
+    if (migrated.value === 'true') {
+      return;
+    }
+
+    const target = this.getDatabase();
+
+    try {
+
+      const countResult = await target.query(`
+        SELECT COUNT(*) AS count FROM transactions
+      `);
+
+      const currentCount = Number(
+        (countResult.values ?? [])[0]?.count ?? 0
+      );
+
+      if (currentCount > 0) {
+
+        // The user already has their own data - never merge legacy rows
+        // into it.
+        await Preferences.set({
+          key: LEGACY_MIGRATED_KEY,
+          value: 'true'
+        });
+
+        return;
+
+      }
+
+      let legacyDb: SQLiteDBConnection | null = null;
+
+      try {
+
+        const isLegacyConnection =
+          await this.sqlite.isConnection(
+            this.legacyDatabaseName,
+            false
+          );
+
+        legacyDb = isLegacyConnection.result
+          ? await this.sqlite.retrieveConnection(
+              this.legacyDatabaseName,
+              false
+            )
+          : await this.sqlite.createConnection(
+              this.legacyDatabaseName,
+              false,
+              'no-encryption',
+              1,
+              false
+            );
+
+        await legacyDb.open();
+
+        const transactionResult =
+          await legacyDb.query(`
+            SELECT * FROM transactions
+          `);
+
+        const reminderResult =
+          await legacyDb.query(`
+            SELECT * FROM reminders
+          `);
+
+        const legacyTransactions =
+          (transactionResult.values ?? []) as Transaction[];
+
+        const legacyReminders =
+          (reminderResult.values ?? []) as Reminder[];
+
+        const now = new Date().toISOString();
+
+        for (const transaction of legacyTransactions) {
+
+          if (!transaction.id) {
+            continue;
+          }
+
+          await target.run(
+            `
+            INSERT OR REPLACE INTO transactions
+            (
+              id,
+              title,
+              amount,
+              type,
+              category,
+              date,
+              time,
+              notification_id,
+              notes,
+              created_at,
+              updated_at
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            `,
+            [
+              transaction.id,
+              transaction.title,
+              transaction.amount,
+              transaction.type,
+              transaction.category,
+              transaction.date,
+              transaction.time ?? null,
+              transaction.notification_id ?? null,
+              transaction.notes ?? '',
+              transaction.created_at ?? now,
+              transaction.updated_at ?? now
+            ]
+          );
+
+        }
+
+        for (const reminder of legacyReminders) {
+
+          if (!reminder.id) {
+            continue;
+          }
+
+          await target.run(
+            `
+            INSERT OR REPLACE INTO reminders
+            (
+              id,
+              title,
+              amount,
+              due_date,
+              notification_id,
+              created_at
+            )
+            VALUES (?, ?, ?, ?, ?, ?)
+            `,
+            [
+              reminder.id,
+              reminder.title,
+              reminder.amount ?? null,
+              reminder.due_date,
+              reminder.notification_id ?? null,
+              reminder.created_at ?? now
+            ]
+          );
+
+        }
+
+        await Preferences.set({
+          key: LEGACY_MIGRATED_KEY,
+          value: 'true'
+        });
+
+      } finally {
+
+        if (legacyDb) {
+
+          try {
+
+            await this.sqlite.closeConnection(
+              this.legacyDatabaseName,
+              false
+            );
+
+          } catch (error) {
+
+            console.warn(
+              'Failed to close legacy database:',
+              error
+            );
+
+          }
+
+        }
+
+      }
+
+    } catch (error) {
+
+      // Migration must never block login or data access.
+      console.warn(
+        'Legacy database migration failed:',
+        error
+      );
+
+    }
+
   }
 
   private async ensureJeepSqliteElementForWeb(): Promise<void> {
@@ -447,8 +732,8 @@ export class DatabaseService {
         transaction.time ?? null,
         transaction.notification_id ?? null,
         transaction.notes ?? '',
-        now,
-        now
+        transaction.created_at ?? now,
+        transaction.updated_at ?? now
       ]
     );
     
@@ -728,15 +1013,30 @@ export class DatabaseService {
 
   async closeDatabase(): Promise<void> {
 
-    if (!this.db) {
-      return;
+    if (this.db && this.currentDatabaseName) {
+
+      try {
+
+        await this.sqlite.closeConnection(
+          this.currentDatabaseName,
+          false
+        );
+
+      } catch (error) {
+
+        console.warn(
+          'Failed to close SQLite connection:',
+          error
+        );
+
+      }
+
     }
 
-    await this.sqlite.closeConnection(
-      this.databaseName,
-      false
-    );
-
     this.db = undefined;
+
+    this.currentDatabaseName = undefined;
+
+    this.currentUid = undefined;
   }
 }

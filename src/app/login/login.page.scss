@@ -3,6 +3,10 @@
    Mobile-first finance app UI
    ========================================= */
 
+ion-content.login-content {
+  --background: var(--app-background, #f8f9fb);
+}
+
 .login-page {
   min-height: 100%;
   width: 100%;
@@ -336,13 +340,102 @@
 
 
 /* =========================================
+   OR DIVIDER
+   ========================================= */
+
+.or-divider {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  margin: 22px 0;
+
+  color: #9aa0a8;
+}
+
+.or-divider::before,
+.or-divider::after {
+  content: "";
+
+  flex: 1;
+
+  height: 1px;
+
+  background: #e3e6ea;
+}
+
+.or-divider span {
+  font-size: 12px;
+  font-weight: 600;
+
+  letter-spacing: 0.4px;
+}
+
+
+/* =========================================
+   GOOGLE BUTTON
+   ========================================= */
+
+.google-button {
+  --border-color: #20252d;
+  --color: #20252d;
+
+  --border-radius: 14px;
+  --border-width: 1.5px;
+  --border-style: solid;
+
+  height: 54px;
+
+  margin: 0;
+
+  font-size: 15px;
+  font-weight: 650;
+
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.google-button ion-icon {
+  font-size: 19px;
+}
+
+
+/* =========================================
+   CREATE ACCOUNT LINK
+   ========================================= */
+
+.create-account-row {
+  margin-top: 12px !important;
+
+  color: #9aa0a8;
+}
+
+.create-account-link {
+  border: none;
+  background: transparent;
+
+  padding: 0 0 0 2px;
+
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 650;
+
+  color: #20252d;
+
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+/* =========================================
    BOTTOM
    ========================================= */
 
 .bottom-section {
   margin-top: auto;
 
-  padding-top: 40px;
+  padding-top: 10px;
 
   text-align: center;
 }
@@ -435,6 +528,28 @@
 
   .bottom-section p {
     color: #6f767f;
+  }
+
+  .or-divider {
+    color: #6f767f;
+  }
+
+  .or-divider::before,
+  .or-divider::after {
+    background: #30353c;
+  }
+
+  .google-button {
+    --border-color: #e5e7eb;
+    --color: #e5e7eb;
+  }
+
+  .create-account-row {
+    color: #6f767f;
+  }
+
+  .create-account-link {
+    color: #e5e7eb;
   }
 }
 
